@@ -1,15 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/home/Home";
+import { Footer } from "./components/footer/Footer";
+import ProductModal from "./components/produto/Produto";
+
+
+
 
 function App() {
   return (
-    <>
-      <BrowserRouter >
-        <Routes >
-          <Route />
-        </ Routes>
-      </ BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/footer" element={<Footer />} />
+        <Route path="/produto" element={<ProductModal />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
