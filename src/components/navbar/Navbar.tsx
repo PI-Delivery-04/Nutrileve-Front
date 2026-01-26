@@ -80,7 +80,7 @@ export function Navbar() {
               />
             </div>
 
-            <div className="flex gap-3 overflow-x-auto pb-1 pt-1">
+            <div className="flex gap-3 overflow-x-auto pb-1 pt-1 ">
               {[
                 'Todos',
                 'Vegano',
@@ -91,7 +91,7 @@ export function Navbar() {
               ].map(tag => (
                 <button
                   key={tag}
-                  className="px-4 py-2 bg-emerald-100/70 text-emerald-700 hover:bg-emerald-200/80 rounded-full text-sm font-medium whitespace-nowrap transition"
+                  className="px-4 py-2 bg-emerald-100/70 text-emerald-700 hover:bg-emerald-200/80 rounded-full text-sm font-medium whitespace-nowrap transition hover:bg-orange-300 hover:text-white"
                 >
                   {tag}
                 </button>
