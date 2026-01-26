@@ -16,7 +16,7 @@ const steps = [
   {
     icon: Clock,
     title: 'Preparamos com Carinho',
-    description: 'Nossa equipe prepara sua refeição com ingredientes frescos e de qualidade',
+    description: 'Nossas lojas parceiras preparam sua refeição com ingredientes frescos e de qualidade',
     color: 'bg-orange-100 text-orange-600'
   },
   {

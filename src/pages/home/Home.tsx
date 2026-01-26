@@ -1,8 +1,26 @@
 import { ArrowRight, Clock, Leaf, Star } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { ImageWithFallback } from '../../components/ui/ImageWithFallback';
+import { useNavigate } from 'react-router-dom';
 
 export function Home() {
+
+  const nav = useNavigate()
+
+  function redirect(path: string) {
+    switch (path) {
+      case 'prod':
+        nav('/produtos')
+        break;
+      case 'about':
+        nav('/about')
+        break;
+      default:
+        nav('/')
+    }
+  }
+
+
   return (
     <section className="pt-24 pb-12 md:pt-32 md:pb-20 bg-gradient-to-b from-emerald-50 to-white">
       <div className="container mx-auto px-4">
@@ -19,16 +37,17 @@ export function Home() {
             </h1>
 
             <p className="text-lg text-gray-600">
-              Descubra uma nova maneira de se alimentar bem. Pratos frescos, 
+              Descubra uma nova maneira de se alimentar bem. Pratos frescos,
               nutritivos e deliciosos, preparados especialmente para o seu estilo de vida.
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-lg px-8">
+              <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-lg px-8 cursor-pointer" onClick={() => redirect('prod')}>
                 Ver Cardápio
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8">
+
+              <Button size="lg" variant="outline" className="text-lg px-8 cursor-pointer" onClick={() => redirect('about')}>
                 Sobre nós
               </Button>
             </div>
@@ -56,7 +75,7 @@ export function Home() {
               alt="Healthy food delivery"
               className="relative rounded-3xl shadow-2xl object-cover w-full h-[500px]"
             />
-            
+
             <div className="absolute bottom-8 left-8 bg-white rounded-2xl shadow-xl p-4 transform -rotate-2">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
