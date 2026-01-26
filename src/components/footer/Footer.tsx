@@ -1,15 +1,15 @@
-import { Facebook, Instagram, Twitter, Mail, Phone } from 'lucide-react';
+import { FacebookLogoIcon, InstagramLogoIcon, TwitterLogoIcon } from '@phosphor-icons/react';
+import { Mail, Phone } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-12">
+    <footer className="bg-gray-900 text-gray-300 py-8">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
-          {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl"> </span>
+              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                <img src="https://ik.imagekit.io/f9nzlij8o/Gemini_Generated_Image_burmusburmusburm.png" alt="Logo" className="w-10 h-10 object-contain rounded-full" />
               </div>
               <span className="font-bold text-xl text-white">NutriLeve</span>
             </div>
@@ -18,7 +18,6 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Links */}
           <div>
             <h3 className="font-semibold text-white mb-3">Ajuda</h3>
             <ul className="space-y-2 text-sm">
@@ -40,7 +39,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
             <h3 className="font-semibold text-white mb-3">Contato</h3>
             <ul className="space-y-3 text-sm">
@@ -55,13 +53,13 @@ export function Footer() {
             </ul>
             <div className="flex gap-3 mt-4">
               <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors">
-                <Instagram className="w-4 h-4" />
+                <InstagramLogoIcon className="w-4 h-4" />
               </a>
               <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors">
-                <Facebook className="w-4 h-4" />
+                <FacebookLogoIcon className="w-4 h-4" />
               </a>
               <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors">
-                <Twitter className="w-4 h-4" />
+                <TwitterLogoIcon className="w-4 h-4" />
               </a>
             </div>
           </div>
