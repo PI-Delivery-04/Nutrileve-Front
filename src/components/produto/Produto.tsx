@@ -1,7 +1,7 @@
 import { X, Plus, Minus, Flame, Star } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from './ui/button';
-import { ImageWithFallback } from '../../imgfallback/ImageWithFallback';
+import { Button } from '../ui/button';
+import { ImageWithFallback } from '../../assets/imgfallback/ImageWithFallback';
 
 
 interface ProdutoModalProps {
@@ -22,7 +22,7 @@ interface ProdutoModalProps {
   };
 }
 
-export function ProductModal({ isOpen, onClose, produto }: ProdutoModalProps) {
+export function ProdutoModal({ isOpen, onClose, produto }: ProdutoModalProps) {
   const [quantidade, setQuantity] = useState(1);
 
   if (!isOpen) return null;
@@ -131,4 +131,4 @@ export function ProductModal({ isOpen, onClose, produto }: ProdutoModalProps) {
   );
 }
 
-export default ProductModal;
+export default ProdutoModal;
