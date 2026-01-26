@@ -62,11 +62,12 @@ export function Navbar() {
         </div >
       </header >
 
-      <section className="pt-20 pb-10 bg-gradient-to-b from-emerald-50/70 to-white">
+      {/* </><section className="pt-20 pb-10 bg-gradient-to-b from-emerald-50/70 to-white"> */}
+      <section className="pt-20 pb-10 bg-gradient-to-t from-emerald-50 to-white">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
+          {/* <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
             Seu delivery de comida saudável
-          </h1>
+          </h1> */}
 
           <div className="flex items-start gap-4">
 
