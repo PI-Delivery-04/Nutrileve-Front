@@ -1,5 +1,9 @@
-import { FacebookLogoIcon, InstagramLogoIcon, TwitterLogoIcon } from '@phosphor-icons/react';
-import { Mail, Phone } from 'lucide-react';
+import {
+  FacebookLogoIcon,
+  InstagramLogoIcon,
+  TwitterLogoIcon,
+} from "@phosphor-icons/react";
+import { Mail, Phone } from "lucide-react";
 
 export function Footer() {
   return (
@@ -9,7 +13,11 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                <img src="https://ik.imagekit.io/f9nzlij8o/Gemini_Generated_Image_burmusburmusburm.png" alt="Logo" className="w-10 h-10 object-contain rounded-full" />
+                <img
+                  src="https://ik.imagekit.io/f9nzlij8o/Gemini_Generated_Image_burmusburmusburm.png"
+                  alt="Logo"
+                  className="w-10 h-10 object-contain rounded-full"
+                />
               </div>
               <span className="font-bold text-xl text-white">NutriLeve</span>
             </div>
@@ -52,13 +60,25 @@ export function Footer() {
               </li>
             </ul>
             <div className="flex gap-3 mt-4">
-              <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors">
+              <a
+                target="_blank"
+                href="https://linktr.ee/nicolasfernandodev"
+                className="w-8 h-8 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors"
+              >
                 <InstagramLogoIcon className="w-4 h-4" />
               </a>
-              <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors">
+              <a
+                target="_blank"
+                href="https://linktr.ee/nicolasfernandodev"
+                className="w-8 h-8 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors"
+              >
                 <FacebookLogoIcon className="w-4 h-4" />
               </a>
-              <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors">
+              <a
+                target="_blank"
+                href="https://linktr.ee/nicolasfernandodev"
+                className="w-8 h-8 bg-gray-800 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors"
+              >
                 <TwitterLogoIcon className="w-4 h-4" />
               </a>
             </div>
