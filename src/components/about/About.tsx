@@ -22,7 +22,7 @@ const steps = [
   {
     icon: Truck,
     title: 'Entrega Rápida',
-    description: 'Receba em casa em até 45 minutos, sempre quentinho e pronto para consumo',
+    description: 'Receba em casa em até 45 minutos, sempre fresquinho e pronto para consumo',
     color: 'bg-purple-100 text-purple-600'
   }
 ];
