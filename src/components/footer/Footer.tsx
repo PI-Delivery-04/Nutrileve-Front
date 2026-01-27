@@ -22,7 +22,7 @@ export function Footer() {
               <span className="font-bold text-xl text-white">NutriLeve</span>
             </div>
             <p className="text-gray-400 text-sm">
-              Alimentação saudável delivery
+              Alimentação Saudável que Transforma Vidas.
             </p>
           </div>
 
