@@ -29,44 +29,42 @@ function ListaCategorias() {
     <div className="w-full bg-emerald-50/30">
       <div className="container mx-auto px-4 py-10">
 
-        {/* HEADER BONITO */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-emerald-700 font-medium">Categorias</h1>
-        
+            <h1 className="text-emerald-700">
+              Categorias
+            </h1>
             <p className="text-slate-600 mt-1">
-              Organize o cardápio criando e mantendo categorias.
+              Organize e gerencie as categorias dos pratos
             </p>
           </div>
 
-          <Link to="/cadastrarcategoria">
-            <button className="rounded-xl bg-emerald-600 text-white font-medium px-5 py-3 hover:bg-emerald-700 transition shadow-sm">
-              Nova categoria
-            </button>
+          <Link
+            to="/cadastrarcategoria"
+            className="bg-emerald-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-emerald-700 transition"
+          >
+            Nova categoria
           </Link>
         </div>
 
-        {/* LOADER */}
+
         {isLoading && (
           <div className="flex justify-center py-14">
             <SyncLoader color="#166534" size={14} />
           </div>
         )}
 
-        {/* VAZIO */}
         {!isLoading && categorias.length === 0 && (
           <div className="rounded-2xl border border-emerald-100 bg-white/70 backdrop-blur p-10 text-center">
             <p className="text-2xl md:text-3xl font-semibold text-slate-900">
               Nenhuma categoria encontrada!
             </p>
-            <p className="text-slate-600 mt-2">
-              Cadastre uma categoria para começar a organizar o cardápio.
-            </p>
 
             <div className="mt-6">
               <Link to="/cadastrarcategoria">
                 <button className="rounded-xl bg-emerald-600 text-white font-medium px-6 py-3 hover:bg-emerald-700 transition shadow-sm">
-                  Cadastrar primeira categoria
+                  Cadastrar categoria
                 </button>
               </Link>
             </div>

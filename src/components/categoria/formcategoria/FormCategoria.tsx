@@ -6,10 +6,10 @@ import { ClipLoader } from "react-spinners"
 
 import type Categoria from "../../../models/Categoria"
 import { buscar, cadastrar, atualizar } from "../../../services/Service"
+import { toastErro, toastSucesso } from "../../../utils/toast"
 
 function FormCategoria() {
 
-  // 1️⃣ Hooks SEMPRE aqui em cima
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
 
@@ -21,14 +21,12 @@ function FormCategoria() {
   
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  // 2️⃣ useEffect para EDITAR
   useEffect(() => {
     if (id !== undefined) {
       buscarCategoriaPorId(id)
     }
   }, [id])
 
-  // 3️⃣ Buscar categoria por ID
   async function buscarCategoriaPorId(id: string) {
     try {
       await buscar(`/categoria/${id}`, setCategoria)
@@ -37,7 +35,6 @@ function FormCategoria() {
     }
   }
 
-  // 4️⃣ Atualizar estado dos inputs
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setCategoria({
       ...categoria,
@@ -45,7 +42,6 @@ function FormCategoria() {
     })
   }
 
-  // 5️⃣ Submit do formulário
   async function gerarCategoria(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setIsLoading(true)
@@ -53,13 +49,13 @@ function FormCategoria() {
     try {
       if (id !== undefined) {
         await atualizar("/categoria", categoria, setCategoria)
-        alert("Categoria atualizada com sucesso!")
+        toastSucesso("Categoria atualizada com sucesso!")
       } else {
         await cadastrar("/categoria", categoria, setCategoria)
-        alert("Categoria cadastrada com sucesso!")
+       toastSucesso("Categoria cadastrada com sucesso!")
       }
     } catch (error) {
-      alert("Erro ao salvar categoria")
+     toastErro("Erro ao salvar categoria")
     }
 
     setIsLoading(false)
@@ -102,7 +98,6 @@ function FormCategoria() {
             />
           </div>
 
-          {/* Descrição */}
           <div className="flex flex-col gap-2">
             <label htmlFor="descricao" className="text-slate-700 font-medium">
               Descrição
@@ -118,7 +113,6 @@ function FormCategoria() {
             />
           </div>
 
-          {/* Botões */}
           <div className="flex flex-col sm:flex-row gap-3 sm:justify-end">
             <button
               type="button"

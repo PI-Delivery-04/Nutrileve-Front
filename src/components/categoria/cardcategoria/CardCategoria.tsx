@@ -14,12 +14,6 @@ function CardCategoria({ categoria }: CardCategoriaProps) {
             <h2 className="text-lg md:text-xl font-semibold text-slate-900 capitalize truncate">
               {categoria.nome}
             </h2>
-
-            <div className="mt-2 inline-flex items-center gap-2">
-              <span className="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 px-3 py-1 text-xs font-medium">
-                Categoria
-              </span>
-            </div>
           </div>
         </div>
 

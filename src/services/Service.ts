@@ -4,15 +4,6 @@ export const api = axios.create({
   baseURL: "https://nutrilevebackend.onrender.com",
 });
 
-//TEMPORÁRIO até o Auth ficar pronto
-const TOKEN = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0aGFpcy50ZXN0ZUBnbWFpbC5jb20iLCJpYXQiOjE3Njk3ODYxNzUsImV4cCI6MTc2OTgwNDE3NX0.nAASdX3AOnwSlhgSa93a0PRzZRv2clZD-24sDCsuW8c";
-
-api.interceptors.request.use((config) => {
-  config.headers = config.headers ?? {};
-  config.headers.Authorization = TOKEN;
-  return config;
-});
-
 export const buscar = async (
   url: string,
   setDados: Function,
