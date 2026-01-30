@@ -2,15 +2,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { About } from "./components/about/About";
 import { Navbar } from "./components/navbar/Navbar";
 
-import { Produto} from "./components/produto/Produto";
 import { Home } from "./pages/home/Home";
 import { Footer } from "./components/footer/Footer";
+import { Produto } from "./components/produto/Produto";
 
 function App() {
   return (
     <>
       <BrowserRouter >
-       <Navbar />
+        <Navbar />
         <Routes >
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
