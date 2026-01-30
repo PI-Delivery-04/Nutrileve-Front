@@ -14,7 +14,6 @@ export function Navbar() {
               <Link to='/'>
                 <div className="flex items-center gap-2">
                   <div className="w-10 h-10 bg-white-500/90 rounded-xl flex items-center justify-center shadow-sm">
-                    {/* <img src="https://ik.imagekit.io/jx4y334fq/nutrileveicon.png" alt="logo_nutrileve" className='w-900' /> */}
                     <img src="https://ik.imagekit.io/f9nzlij8o/Gemini_Generated_Image_burmusburmusburm.png" alt="Logo" className="w-10 h-10 object-contain rounded-full" />
                   </div>
                   <span className="font-semibold text-lg text-gray-900">
@@ -55,19 +54,17 @@ export function Navbar() {
                 size="icon"
                 className="text-gray-700 hover:bg-emerald-50"
               >
-                <User className="w-5 h-5" />
+                <Link to='/perfil'>
+                  <User className="w-5 h-5" />
+                </Link>                               
               </Button>
             </div>
           </div>
         </div >
       </header >
 
-      {/* </><section className="pt-20 pb-10 bg-gradient-to-b from-emerald-50/70 to-white"> */}
       <section className="pt-20 pb-10 bg-gradient-to-t from-emerald-50 to-white">
         <div className="container mx-auto px-4">
-          {/* <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
-            Seu delivery de comida saudável
-          </h1> */}
 
           <div className="flex items-start gap-4">
 
