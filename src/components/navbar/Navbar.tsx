@@ -37,6 +37,14 @@ export function Navbar() {
                 <Link to='/about' className="text-gray-700 hover:text-emerald-600 transition-colors">
                   Sobre nós
                 </ Link>
+                <Link to="/categorias" className="hover:underline">
+                  Categorias
+                </Link>
+                <Link to="/cadastrarcategoria" className="hover:underline">
+                  Cadastrar Categoria
+                </Link>
+
+
               </nav>
 
               <Button
