@@ -21,10 +21,10 @@ export const createProduct = async (
 
     const encomenda = productToEncomenda(
         product,
-        DEFAULT_CATEGORIA.id,
-        DEFAULT_CATEGORIA.nome
+        // DEFAULT_CATEGORIA.id,
+        // DEFAULT_CATEGORIA.nome
     );
-
+    console.log(encomenda)
     const response = await api.post<EncomendaDTO>('/encomendas', encomenda);
     return encomendaToProduct(response.data);
 };
@@ -36,10 +36,10 @@ export const updateProduct = async (
 
     const encomenda = productToEncomenda(
         product,
-        DEFAULT_CATEGORIA.id,
-        DEFAULT_CATEGORIA.nome
+        // DEFAULT_CATEGORIA.id,
+        // DEFAULT_CATEGORIA.nome
     );
-
+    console.log(encomenda)
     const response = await api.put<EncomendaDTO>(
         `/encomendas/${id}`,
         encomenda

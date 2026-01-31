@@ -275,7 +275,7 @@ export function Produto() {
             <Button
               onClick={() => setShowFilters(!showFilters)}
               variant="outline"
-              className="gap-2"
+              className="gap-2 hover:cursor-pointer"
             >
               <Filter className="w-4 h-4" />
               {showFilters ? 'Ocultar Filtros' : 'Mostrar Filtros'}
@@ -284,14 +284,14 @@ export function Produto() {
               onClick={loadProducts}
               variant="outline"
               disabled={isLoading}
-              className="gap-2"
+              className="gap-2 hover:cursor-pointer"
             >
               <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
               Atualizar
             </Button>
             <Button
               onClick={handleCreateProduct}
-              className="bg-emerald-600 hover:bg-emerald-700 gap-2"
+              className="bg-emerald-600 hover:bg-emerald-700 gap-2 hover:cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               Novo Produto
@@ -308,17 +308,6 @@ export function Produto() {
                   <Filter className="w-5 h-5 text-emerald-600" />
                   <h3 className="font-semibold text-gray-900">Filtros Avançados</h3>
                 </div>
-                {((searchTerm || categoryFilter !== 'all' || availabilityFilter !== 'available')
-                ) && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={clearFilters}
-                      className="text-emerald-600 hover:text-emerald-700"
-                    >
-                      Limpar Filtros
-                    </Button>
-                  )}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -365,7 +354,7 @@ export function Produto() {
 
 
                 {/* Availability Filter */}
-                <Select value={availabilityFilter} onValueChange={setAvailabilityFilter}>
+                {/* <Select value={availabilityFilter} onValueChange={setAvailabilityFilter}>
                   <SelectTrigger>
                     <SelectValue placeholder="Disponibilidade" />
                   </SelectTrigger>
@@ -374,7 +363,7 @@ export function Produto() {
                     <SelectItem value="available">Disponíveis</SelectItem>
                     <SelectItem value="unavailable">Indisponíveis</SelectItem>
                   </SelectContent>
-                </Select>
+                </Select> */}
               </div>
 
               {/* Results Count */}
@@ -398,6 +387,7 @@ export function Produto() {
               <Button
                 variant="outline"
                 onClick={clearFilters}
+                className='hover:cursor-pointer'
               >
                 Limpar Filtros
               </Button>
@@ -419,7 +409,7 @@ export function Produto() {
                     <Button
                       size="icon"
                       variant="ghost"
-                      className={`bg-white/90 hover:bg-white backdrop-blur-sm ${favorites.includes(product.id || 0) ? 'text-red-500' : 'text-gray-600'
+                      className={`bg-white/90 hover:bg-white backdrop-blur-sm hover:cursor-pointer ${favorites.includes(product.id || 0) ? 'text-red-500' : 'text-gray-600'
                         }`}
                       onClick={() => toggleFavorite(product.id || 0)}
                     >
@@ -428,11 +418,11 @@ export function Produto() {
                   </div>
 
                   {/* Admin Actions - Top Left */}
-                  <div className="absolute top-3 left-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-3 left-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity ">
                     <Button
                       size="icon"
                       variant="ghost"
-                      className="bg-white/90 hover:bg-emerald-50 hover:text-emerald-600 backdrop-blur-sm"
+                      className="bg-white/90 hover:bg-emerald-50 hover:text-emerald-600 backdrop-blur-sm hover:cursor-pointer"
                       onClick={(e) => handleEditProduct(product, e)}
                     >
                       <Edit className="w-4 h-4" />
@@ -440,7 +430,7 @@ export function Produto() {
                     <Button
                       size="icon"
                       variant="ghost"
-                      className="bg-white/90 hover:bg-red-50 hover:text-red-600 backdrop-blur-sm"
+                      className="bg-white/90 hover:bg-red-50 hover:text-red-600 backdrop-blur-sm hover:cursor-pointer"
                       onClick={(e) => handleDeleteClick(product, e)}
                     >
                       <Trash2 className="w-4 h-4" />
@@ -466,12 +456,12 @@ export function Produto() {
                 <CardContent className="p-5">
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="font-bold text-lg text-gray-900">{product.name}</h3>
-                    {product.rating && (
-                      <div className="flex items-center gap-1">
-                        <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                        <span className="text-sm font-semibold text-gray-700">{product.rating}</span>
-                      </div>
-                    )}
+                    {/* {product.rating && ( */}
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                      <span className="text-sm font-semibold text-gray-700">{product.rating}</span>
+                    </div>
+                    {/* )} */}
                   </div>
 
                   <p className="text-sm text-gray-600 mb-4 line-clamp-2">{product.description}</p>
@@ -515,7 +505,7 @@ export function Produto() {
                       </p>
                     </div>
                     <Button
-                      className="bg-emerald-600 hover:bg-emerald-700"
+                      className="bg-emerald-600 hover:bg-emerald-700 hover:cursor-pointer"
                       disabled={!product.available}
                     >
                       <Plus className="w-4 h-4 mr-2" />

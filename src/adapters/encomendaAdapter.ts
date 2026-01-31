@@ -29,8 +29,8 @@ export function encomendaToProduct(encomenda: EncomendaDTO): Product {
 
 export function productToEncomenda(
     product: Product,
-    usuarioId: number,
-    usuarioName: string
+    //usuarioId: number,
+    //usuarioName: string
 ): EncomendaDTO {
     return {
         id: product.id,
@@ -44,7 +44,7 @@ export function productToEncomenda(
         categoria: {
             id: product.category.id,
             nome: product.category.name
-        },
-        usuario: { id: usuarioId, nome: usuarioName }
+        }
+        //usuario: { id: usuarioId, nome: usuarioName }
     }
 }
