@@ -17,6 +17,11 @@ export interface EncomendaDTO {
     avaliacao: number
     data: string
 
+    foto: string
+    proteina: number
+    carboidrato: number
+    gordura: number
+
     categoria?: CategoriaDTO | undefined
     usuario?: UsuarioDTO | undefined
 }

@@ -6,7 +6,8 @@ export const api = axios.create({
 
 //interceptor auth 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+//   const token = localStorage.getItem("token");
+  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyb290QHJvb3QuY29tIiwiaWF0IjoxNzY5OTcyNTMwLCJleHAiOjE3Njk5OTA1MzB9.XS4ACPBv9mGelgBytB3iNvtMVWRF7TMBeJyiNR6yOec';
 
   if (token) {
     config.headers = config.headers ?? {};

@@ -15,12 +15,12 @@ export function encomendaToProduct(encomenda: EncomendaDTO): Product {
             name: encomenda.categoria?.nome ?? 'Sem categoria'
         },
 
-        image: 'https://placehold.co/600x400',
-        available: true,
+        image: encomenda.foto ?? 'https://placehold.co/600x400',
+        protein: encomenda.proteina,
+        carbs: encomenda.carboidrato,
+        fat: encomenda.gordura,
 
-        protein: 0,
-        carbs: 0,
-        fat: 0,
+        available: true,
         dietType: [],
         tags: []
     };
@@ -28,9 +28,7 @@ export function encomendaToProduct(encomenda: EncomendaDTO): Product {
 
 
 export function productToEncomenda(
-    product: Product,
-    //usuarioId: number,
-    //usuarioName: string
+    product: Product
 ): EncomendaDTO {
     return {
         id: product.id,
@@ -40,6 +38,11 @@ export function productToEncomenda(
         preco: product.price,
         avaliacao: product.rating ?? 0,
         data: new Date().toISOString().split('T')[0],
+
+        foto: product.image,
+        proteina: product.protein,
+        carboidrato: product.carbs,
+        gordura: product.fat,
 
         categoria: {
             id: product.category.id,
