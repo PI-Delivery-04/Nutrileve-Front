@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const api = axios.create({ 
+export const api = axios.create({
   baseURL: 'https://nutrilevebackend.onrender.com',
   headers: {
     "Content-Type": "application/json"
@@ -9,7 +9,13 @@ export const api = axios.create({
 
 // Cadastro
 export async function cadastrarUsuario(url: string, dados: any) {
-  const response = await api.post(url, dados)
+
+  const response = await api.post(url, dados, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+
   return response.data
 }
 
@@ -25,6 +31,6 @@ export async function loginUsuario(url: string, dados: any) {
 
     console.error("Erro no login:", error)
 
-    throw error 
+    throw error
   }
 }

@@ -8,6 +8,7 @@ import { UserPlus, ArrowLeft } from 'lucide-react'
 import { toast } from 'sonner'
 import { cadastrarUsuario } from '../../services/ServiceLogin'
 
+
 export function Register() {
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
@@ -17,6 +18,7 @@ export function Register() {
     email: '',
     senha: '',
     confirmSenha: '',
+    foto: null as File | null
   })
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -45,15 +47,20 @@ export function Register() {
     setIsLoading(true)
 
     try {
-      const payload = {
-        nome: formData.nome,
-        usuario: formData.email,
-        senha: formData.senha,
-        tipo_usuario: 'CLIENTE',
-        foto: null
+
+      const form = new FormData()
+
+      form.append('nome', formData.nome)
+      form.append('usuario', formData.email)
+      form.append('senha', formData.senha)
+      form.append('tipo_usuario', 'CLIENTE')
+
+      if (formData.foto) {
+        form.append('foto', formData.foto)
       }
 
-      await cadastrarUsuario('/usuario/cadastrar', payload)
+      await cadastrarUsuario('/usuario/cadastrar', form)
+
 
       toast.success('Cadastro realizado com sucesso!', {
         description: 'Agora você pode fazer login na plataforma.',
@@ -163,6 +170,22 @@ export function Register() {
                   }
                   required
                   disabled={isLoading}
+                />
+              </div>
+
+              <div>
+                <Label>Foto de perfil</Label>
+
+                <Input
+                  type="file"
+                  accept="image/*"
+                  disabled={isLoading}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      foto: e.target.files ? e.target.files[0] : null
+                    })
+                  }
                 />
               </div>
 
