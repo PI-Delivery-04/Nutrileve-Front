@@ -119,7 +119,7 @@ export function Produto() {
   return (
     <>
       <section className="py-8 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 pt-24 pb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
             Refeições Saudáveis
           </h2>
