@@ -10,108 +10,9 @@ import { ProductForm } from './adminproduto/ProductForm';
 import { DeleteConfirmDialog } from './adminproduto/DeleteConfirmDialog';
 import { toast } from 'sonner';
 import * as api from '../../services/apiProduto';
-
 import { Product } from '../../models/Product';
 import { Category } from '../../models/Category';
-
-// const mockProducts: Product[] = [
-//   {
-//     id: 1,
-//     name: 'Bowl Energético Completo',
-//     description: 'Quinoa, grão-de-bico, abacate, tomate cereja e molho tahine',
-//     calories: 450,
-//     protein: 18,
-//     carbs: 52,
-//     fat: 15,
-//     price: 32.90,
-//     rating: 4.9,
-//     image: 'https://images.unsplash.com/photo-1640718153995-db4d3f0a6337?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoZWFsdGh5JTIwYm93bCUyMHNhbGFkfGVufDF8fHx8MTc2OTQzMDc2Mnww&ixlib=rb-4.1.0&q=80&w=1080',
-//     tags: ['Popular', 'Rico em Fibras'],
-//     category: 'bowl',
-//     dietType: ['vegano', 'vegetariano'],
-//     available: true
-//   },
-//   {
-//     id: 2,
-//     name: 'Frango Grelhado & Legumes',
-//     description: 'Peito de frango grelhado, brócolis, cenoura e batata doce',
-//     calories: 520,
-//     protein: 45,
-//     carbs: 38,
-//     fat: 12,
-//     price: 36.90,
-//     rating: 4.8,
-//     image: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxncmlsbGVkJTIwY2hpY2tlbiUyMHZlZ2V0YWJsZXN8ZW58MXx8fHwxNzY5Mzk1MTM0fDA&ixlib=rb-4.1.0&q=80&w=1080',
-//     tags: ['Alto em Proteína', 'Low Carb'],
-//     category: 'protein',
-//     dietType: ['low-carb'],
-//     available: true
-//   },
-//   {
-//     id: 3,
-//     name: 'Salmão com Abacate',
-//     description: 'Salmão grelhado, abacate, aspargos e arroz integral',
-//     calories: 580,
-//     protein: 38,
-//     carbs: 42,
-//     fat: 24,
-//     price: 44.90,
-//     rating: 5.0,
-//     image: 'https://images.unsplash.com/photo-1633862472152-e3873eb1b3ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzYWxtb24lMjBhdm9jYWRvJTIwYm93bHxlbnwxfHx8fDE3Njk0MzA3NjN8MA&ixlib=rb-4.1.0&q=80&w=1080',
-//     tags: ['Premium', 'Ômega 3'],
-//     category: 'protein',
-//     dietType: [],
-//     available: true
-//   },
-//   {
-//     id: 4,
-//     name: 'Buddha Bowl Vegano',
-//     description: 'Mix de grãos, hummus, falafel, vegetais assados e tahine',
-//     calories: 480,
-//     protein: 16,
-//     carbs: 58,
-//     fat: 18,
-//     price: 34.90,
-//     rating: 4.7,
-//     image: 'https://images.unsplash.com/photo-1675092789086-4bd2b93ffc69?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2ZWdhbiUyMGJ1ZGRoYSUyMGJvd2x8ZW58MXx8fHwxNzY5NDMwNzYzfDA&ixlib=rb-4.1.0&q=80&w=1080',
-//     tags: ['100% Vegano', 'Sem Glúten'],
-//     category: 'bowl',
-//     dietType: ['vegano', 'vegetariano'],
-//     available: true
-//   },
-//   {
-//     id: 5,
-//     name: 'Power Bowl de Quinoa',
-//     description: 'Quinoa tricolor, edamame, manga, pepino e gergelim',
-//     calories: 420,
-//     protein: 14,
-//     carbs: 56,
-//     fat: 13,
-//     price: 29.90,
-//     rating: 4.6,
-//     image: 'https://images.unsplash.com/photo-1615865417491-9941019fbc00?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxxdWlub2ElMjBoZWFsdGh5JTIwbWVhbHxlbnwxfHx8fDE3Njk0MzA3NjR8MA&ixlib=rb-4.1.0&q=80&w=1080',
-//     tags: ['Leve', 'Refrescante'],
-//     category: 'bowl',
-//     dietType: ['vegano', 'vegetariano'],
-//     available: true
-//   },
-//   {
-//     id: 6,
-//     name: 'Bowl Mediterrâneo',
-//     description: 'Frango, couscous, tomate, pepino, azeitonas e feta',
-//     calories: 495,
-//     protein: 32,
-//     carbs: 44,
-//     fat: 16,
-//     price: 37.90,
-//     rating: 4.8,
-//     image: 'https://images.unsplash.com/photo-1640718153995-db4d3f0a6337?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoZWFsdGh5JTIwYm93bCUyMHNhbGFkfGVufDF8fHx8MTc2OTQzMDc2Mnww&ixlib=rb-4.1.0&q=80&w=1080',
-//     tags: ['Favorito', 'Equilibrado'],
-//     category: 'bowl',
-//     dietType: [],
-//     available: true
-//   }
-// ];
+import { toastSucesso } from '../../utils/toast';
 
 export function Produto() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -217,21 +118,21 @@ export function Produto() {
       if (product.id) {
         const updated = await api.updateProduct(product.id, product);
         setProducts(prev => prev.map(p => p.id === product.id ? updated : p));
-        toast.success('Produto atualizado com sucesso!');
+        toastSucesso('Produto atualizado com sucesso!');
       } else {
         const created = await api.createProduct(product);
         setProducts(prev => [...prev, created]);
-        toast.success('Produto criado com sucesso!');
+        toastSucesso('Produto criado com sucesso!');
       }
       setIsFormOpen(false);
     } catch (error) {
       if (product.id) {
         setProducts(prev => prev.map(p => p.id === product.id ? product : p));
-        toast.success('Produto atualizado (modo offline)');
+        toastSucesso('Produto atualizado (modo offline)');
       } else {
         const newProduct = { ...product, id: Date.now() };
         setProducts(prev => [...prev, newProduct]);
-        toast.success('Produto criado (modo offline)');
+        toastSucesso('Produto criado (modo offline)');
       }
       setIsFormOpen(false);
     }
@@ -243,10 +144,10 @@ export function Produto() {
     try {
       await api.deleteProduct(productToDelete.id);
       setProducts(prev => prev.filter(p => p.id !== productToDelete.id));
-      toast.success('Produto excluído com sucesso!');
+      toastSucesso('Produto excluído com sucesso!');
     } catch (error) {
       setProducts(prev => prev.filter(p => p.id !== productToDelete.id));
-      toast.success('Produto excluído (modo offline)');
+      toastSucesso('Produto excluído (modo offline)');
     }
   };
 
@@ -258,7 +159,7 @@ export function Produto() {
 
   return (
     <section id="menu" className="py-16 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto p-8">
         <div className="text-center mb-8">
           <Badge className="mb-4 bg-emerald-100 text-emerald-700 hover:bg-emerald-100">
             Nosso Cardápio

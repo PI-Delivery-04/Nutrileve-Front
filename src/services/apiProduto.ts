@@ -41,7 +41,7 @@ export const updateProduct = async (
     );
     console.log(encomenda)
     const response = await api.put<EncomendaDTO>(
-        `/encomendas/${id}`,
+        `/encomendas`,
         encomenda
     );
 

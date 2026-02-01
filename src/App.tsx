@@ -17,30 +17,31 @@ import { Toaster } from "sonner";
 function App() {
   return (
     <>
-
-      <BrowserRouter >
-        <Navbar />
-        <Navbar />
-        <Toaster richColors position="top-right" />
-        <Routes >
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/produtos" element={<Produto />} />
-          <Route path="/perfil" element={<Profile />} />
-
-          <Route path="/categorias" element={<ListaCategorias />} />
-          <Route path="/cadastrarcategoria" element={<FormCategoria />} />
-          <Route path="/editarcategoria/:id" element={<FormCategoria />} />
-          <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
-
-
-          <Route path="/cadastro" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route />
-        </ Routes >
-        <Footer />
-      </ BrowserRouter >
       <ToastContainer />
+      <BrowserRouter >
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          {/* <Toaster richColors position="top-right" /> */}
+          <main className="flex-1 ">
+            <Routes >
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/produtos" element={<Produto />} />
+              <Route path="/perfil" element={<Profile />} />
+
+              <Route path="/categorias" element={<ListaCategorias />} />
+              <Route path="/cadastrarcategoria" element={<FormCategoria />} />
+              <Route path="/editarcategoria/:id" element={<FormCategoria />} />
+              <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
+
+
+              <Route path="/cadastro" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+            </ Routes >
+          </main>
+          <Footer />
+        </div>
+      </ BrowserRouter >
     </>
   );
 }
