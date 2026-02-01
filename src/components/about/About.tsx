@@ -30,7 +30,7 @@ const steps = [
 export function About() {
   return (
     <section id="como-funciona" className="py-16 bg-gradient-to-b from-white to-emerald-50">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 pt-24 pb-12">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Sobre Nós
@@ -40,7 +40,7 @@ export function About() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 pt-8">
           {steps.map((step, index) => (
             <div key={index} className="relative">
               {/* Connection Line (hidden on mobile, shown on larger screens) */}
@@ -112,7 +112,7 @@ export function About() {
               <p className="text-gray-700 text-sm mb-3">
                 "Melhor delivery saudável de SP! Comida deliciosa e entrega rápida."
               </p>
-              <p className="text-sm font-semibold text-gray-900">Ana Silva</p>
+              <p className="text-sm font-semibold text-gray-900">Yuri Silva</p>
             </div>
 
             <div className="bg-gray-50 rounded-xl p-5">
@@ -124,7 +124,7 @@ export function About() {
               <p className="text-gray-700 text-sm mb-3">
                 "Adoro poder ver as informações nutricionais de cada prato. Perfeito!"
               </p>
-              <p className="text-sm font-semibold text-gray-900">Carlos Mendes</p>
+              <p className="text-sm font-semibold text-gray-900">Felipe Andrade</p>
             </div>
 
             <div className="bg-gray-50 rounded-xl p-5">
@@ -136,7 +136,7 @@ export function About() {
               <p className="text-gray-700 text-sm mb-3">
                 "Opções veganas incríveis! Finalmente um delivery que me atende."
               </p>
-              <p className="text-sm font-semibold text-gray-900">Julia Oliveira</p>
+              <p className="text-sm font-semibold text-gray-900">Mariana Araujo</p>
             </div>
           </div>
         </div>
