@@ -4,7 +4,7 @@ export const api = axios.create({
   baseURL: "https://nutrilevebackend.onrender.com",
 });
 
-//interceptor auth no service
+//interceptor auth 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
