@@ -55,17 +55,6 @@ export function Navbar() {
                 </span>
               </Button>
 
-              {/* PERFIL */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-gray-700 hover:bg-emerald-50"
-              >
-                <Link to='/perfil'>
-                  <User className="w-5 h-5" />
-                </Link>
-              </Button>
-
               {/* LOGIN */}
               <Link to="/login">
                 <Button
