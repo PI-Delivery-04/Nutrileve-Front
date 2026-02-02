@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Camera, Save, Trash2, Edit2, User as UserIcon, Lock, Mail, Shield, X, ShoppingBag, Clock, Heart } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
@@ -9,15 +9,16 @@ import { Label } from '../../components/label/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/select/select';
 import { toast } from 'sonner';
 import { DialogContent, DialogFooter, DialogHeader } from '../../components/dialog/dialog';
+import { api } from '../../services/api';
 
 interface Usuario {
   id: number;
   nome: string;
   usuario: string;
-  tipo_usuario: 'admin' | 'cliente' | 'nutricionista';
+  tipo_usuario: 'admin' | 'cliente';
   foto: string;
-  senha: string;
 }
+
 
 interface AtividadeRecente {
   id: number;
@@ -27,110 +28,79 @@ interface AtividadeRecente {
   icone: typeof ShoppingBag;
   cor: string;
 }
-
 export function Profile() {
+  const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [formData, setFormData] = useState<Usuario | null>(null);
+
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Mock - PRA TESTEEEEEEEE
-  const [usuario, setUsuario] = useState<Usuario>({
-    id: 1,
-    nome: 'Beatriz Monteiro tralala',
-    usuario: 'bea@email.com',
-    tipo_usuario: 'cliente',
-    foto: 'https://images.unsplash.com/premium_vector-1682269284255-8209b981c625?qw=400&h=400&fit=crop',
-    senha: '********',
-  });
+  const [loading, setLoading] = useState(true);
 
-  const [formData, setFormData] = useState<Usuario>(usuario);
   const [passwords, setPasswords] = useState({
     current: '',
     new: '',
     confirm: '',
   });
 
-  // Atividades recentes mockadas
-  const atividadesRecentes: AtividadeRecente[] = [
-    {
-      id: 1,
-      tipo: 'pedido',
-      descricao: 'Pedido #1234 - Bowl de Quinoa',
-      data: 'Há 2 horas',
-      icone: ShoppingBag,
-      cor: 'text-emerald-600',
-    },
-    {
-      id: 2,
-      tipo: 'favorito',
-      descricao: 'Adicionou Salada Caesar aos favoritos',
-      data: 'Ontem',
-      icone: Heart,
-      cor: 'text-red-500',
-    },
-    {
-      id: 3,
-      tipo: 'pedido',
-      descricao: 'Pedido #1230 - Wrap Vegano',
-      data: 'Há 3 dias',
-      icone: ShoppingBag,
-      cor: 'text-emerald-600',
-    },
-  ];
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const tipoUsuarioLabels = {
-    admin: 'Administrador',
-    cliente: 'Cliente',
-    nutricionista: 'Nutricionista',
-  };
+  useEffect(() => {
+    carregarUsuario();
+  }, []);
 
-  const tipoUsuarioColors = {
-    admin: 'bg-red-100 text-red-700',
-    cliente: 'bg-emerald-100 text-emerald-700',
-    nutricionista: 'bg-blue-100 text-blue-700',
-  };
+  async function carregarUsuario() {
+    try {
+      const response = await api.get('/usuario/me');
+      setUsuario(response.data);
+      setFormData(response.data);
+    } catch (error) {
+      toast.error('Erro ao carregar dados do perfil');
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData({ ...formData, foto: reader.result as string });
-        toast.success('Foto atualizada com sucesso!');
-      };
-      reader.readAsDataURL(file);
-    }
+    if (!file || !formData) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFormData({ ...formData, foto: reader.result as string });
+      toast.success('Foto atualizada');
+    };
+    reader.readAsDataURL(file);
   };
 
-  const handleSave = () => {
-    // Validação básica
+  async function handleSave() {
+    if (!formData) return;
+
     if (!formData.nome || !formData.usuario) {
-      toast.error('Preencha todos os campos obrigatórios');
+      toast.error('Nome e email são obrigatórios');
       return;
     }
 
-    // Simulação de salvamento
-    setUsuario(formData);
-    setIsEditing(false);
-    toast.success('Perfil atualizado com sucesso!');
-  };
+    try {
+      const response = await api.put('/usuario/me', formData);
+      setUsuario(response.data);
+      setFormData(response.data);
+      setIsEditing(false);
+      toast.success('Perfil atualizado com sucesso');
+    } catch (error) {
+      toast.error('Erro ao atualizar perfil');
+    }
+  }
 
-  const handleCancel = () => {
+  function handleCancel() {
     setFormData(usuario);
     setIsEditing(false);
-  };
+  }
 
-  const handleDelete = () => {
-    // Simulação de exclusão
-    toast.success('Conta excluída com sucesso!');
-    setShowDeleteDialog(false);
-    // Aqui você redirecionaria para logout/login
-  };
-
-  const handlePasswordChange = () => {
+  async function handlePasswordChange() {
     if (!passwords.current || !passwords.new || !passwords.confirm) {
-      toast.error('Preencha todos os campos de senha');
+      toast.error('Preencha todos os campos');
       return;
     }
 
@@ -140,15 +110,51 @@ export function Profile() {
     }
 
     if (passwords.new.length < 6) {
-      toast.error('A senha deve ter no mínimo 6 caracteres');
+      toast.error('A nova senha deve ter no mínimo 6 caracteres');
       return;
     }
 
-    // Simulação de troca de senha
-    toast.success('Senha alterada com sucesso!');
-    setShowPasswordDialog(false);
-    setPasswords({ current: '', new: '', confirm: '' });
+    try {
+      await api.put('/usuario/me/senha', {
+        senhaAtual: passwords.current,
+        novaSenha: passwords.new,
+      });
+
+      toast.success('Senha alterada com sucesso');
+      setShowPasswordDialog(false);
+      setPasswords({ current: '', new: '', confirm: '' });
+    } catch (error) {
+      toast.error('Senha atual incorreta');
+    }
+  }
+
+  async function handleDelete() {
+    try {
+      await api.delete('/usuario/me');
+      toast.success('Conta excluída com sucesso');
+      localStorage.clear();
+      window.location.href = '/login';
+    } catch (error) {
+      toast.error('Erro ao excluir conta');
+    }
+  }
+
+  if (loading || !usuario || !formData) {
+    return <div className="p-10">Carregando perfil...</div>;
+  }
+
+  const tipoUsuarioLabels = {
+    admin: 'Administrador',
+    cliente: 'Cliente',
   };
+
+  const tipoUsuarioColors = {
+    admin: 'bg-red-100 text-red-700',
+    cliente: 'bg-emerald-100 text-emerald-700',
+  };
+
+  const atividadesRecentes: AtividadeRecente[] = [];
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white py-12">
@@ -246,7 +252,7 @@ export function Profile() {
                     </Label>
                     <Select
                       value={formData.tipo_usuario}
-                      onValueChange={(value: 'admin' | 'cliente' | 'nutricionista') =>
+                      onValueChange={(value: 'admin' | 'cliente') =>
                         setFormData({ ...formData, tipo_usuario: value })
                       }
                     >
@@ -255,7 +261,6 @@ export function Profile() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="cliente">Cliente</SelectItem>
-                        <SelectItem value="nutricionista">Nutricionista</SelectItem>
                         <SelectItem value="admin">Administrador</SelectItem>
                       </SelectContent>
                     </Select>
@@ -346,7 +351,6 @@ export function Profile() {
           </div>
         </Card>
 
-        {/* Informações Adicionais */}
         <div className="mt-6 grid md:grid-cols-2 gap-4">
           <Card className="p-4 bg-emerald-50 border-emerald-100">
             <div className="flex items-center gap-3">
