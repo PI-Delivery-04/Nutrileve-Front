@@ -260,8 +260,8 @@ export function Profile() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="cliente">Cliente</SelectItem>
-                        <SelectItem value="admin">Administrador</SelectItem>
+                        <SelectItem value="CLIENTE">Cliente</SelectItem>
+                        <SelectItem value="VENDEDOR">Vendedor</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

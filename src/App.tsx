@@ -12,7 +12,6 @@ import FormCategoria from "./components/categoria/formcategoria/FormCategoria";
 import DeletarCategoria from "./components/categoria/deletarcategoria/DeletarCategoria";
 import { Register } from "./pages/cadastro/Cadastro";
 import { Login } from "./pages/login/Login";
-import { Toaster } from "sonner";
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
       <BrowserRouter >
         <div className="flex flex-col min-h-screen">
           <Navbar />
-          {/* <Toaster richColors position="top-right" /> */}
           <main className="flex-1 ">
             <Routes >
               <Route path="/" element={<Home />} />
