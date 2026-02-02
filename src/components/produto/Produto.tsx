@@ -116,7 +116,7 @@ export function Produto() {
   const handleSaveProduct = async (product: Product) => {
     try {
       if (product.id) {
-        const updated = await api.updateProduct(product.id, product);
+        const updated = await api.updateProduct(product);
         setProducts(prev => prev.map(p => p.id === product.id ? updated : p));
         toastSucesso('Produto atualizado com sucesso!');
       } else {

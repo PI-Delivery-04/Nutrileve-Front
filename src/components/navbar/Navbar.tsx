@@ -39,9 +39,6 @@ export function Navbar() {
                 <Link to="/categorias" className="text-gay-700 hover:text-emerald-600 transition-colors">
                   Categorias
                 </Link>
-                <Link to="/cadastrarcategoria" className="text-gray-700 hover:text-emerald-600 transition-colors">
-                  Cadastrar Categoria
-                </Link>
                 <Link to='/about' className="text-gray-700 hover:text-emerald-600 transition-colors">
                   Sobre nós
                 </ Link>
@@ -84,48 +81,6 @@ export function Navbar() {
           </div>
         </div >
       </header >
-      {/* 
-  <section className="pt-20 pb-10 bg-gradient-to-t from-emerald-50 to-white">
-    <div className="container mx-auto px-4"> */}
-      {!["/login", "/cadastro", "/produtos", "/about"].includes(location.pathname) && (
-        <section className="pt-20 pb-10 bg-gradient-to-t from-emerald-50 to-white">
-          <div className="container mx-auto px-4">
-
-            <div className="flex items-start gap-4">
-
-              <div className="relative w-full max-w-xl">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-emerald-400" />
-                <Input
-                  type="text"
-                  placeholder="Busque por pratos, dietas ou ingredientes..."
-                  className="pl-12 py-6 text-base rounded-xl border border-emerald-100 bg-white/80 shadow-sm focus-visible:ring-emerald-400"
-                />
-              </div>
-
-              <div className="flex gap-3 overflow-x-auto pb-1 pt-1 ">
-                {[
-                  'Todos',
-                  'Vegano',
-                  'Low Carb',
-                  'Alto em Proteína',
-                  'Sem Glúten',
-                  'Vegetariano',
-                ].map(tag => (
-                  <button
-                    key={tag}
-                    className="px-4 py-2 bg-emerald-100/70 text-emerald-700 hover:bg-emerald-200/80 rounded-full text-sm font-medium whitespace-nowrap transition hover:bg-orange-300 hover:text-white"
-                  >
-                    {tag}
-                  </button>
-                ))}
-              </div>
-
-            </div>
-          </div>
-        </section>
-      )}
-
-
     </>
   );
 }

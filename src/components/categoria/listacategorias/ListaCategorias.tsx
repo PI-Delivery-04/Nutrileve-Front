@@ -26,7 +26,7 @@ function ListaCategorias() {
   }
 
   return (
-    <div className="w-full bg-emerald-50/30">
+    <div className="w-full bg-emerald-50/30 pt-12">
       <div className="container mx-auto px-4 py-10">
 
 

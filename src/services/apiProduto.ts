@@ -3,11 +3,7 @@ import { EncomendaDTO } from '../models/EncomendaDTO';
 import { Product } from '../models/Product';
 import { encomendaToProduct, productToEncomenda } from '../adapters/encomendaAdapter';
 import { Category } from '../models/Category';
-
-const DEFAULT_CATEGORIA = {
-    id: 1,
-    nome: 'Geral'
-};
+import { RecomendacaoCategoria } from '../models/Recomendacao';
 
 // GET - Todos os produtos
 export const getAllProducts = async (): Promise<Product[]> => {
@@ -20,9 +16,7 @@ export const createProduct = async (
 ): Promise<Product> => {
 
     const encomenda = productToEncomenda(
-        product,
-        // DEFAULT_CATEGORIA.id,
-        // DEFAULT_CATEGORIA.nome
+        product
     );
     console.log(encomenda)
     const response = await api.post<EncomendaDTO>('/encomendas', encomenda);
@@ -30,14 +24,11 @@ export const createProduct = async (
 };
 
 export const updateProduct = async (
-    id: number,
     product: Product
 ): Promise<Product> => {
 
     const encomenda = productToEncomenda(
-        product,
-        // DEFAULT_CATEGORIA.id,
-        // DEFAULT_CATEGORIA.nome
+        product
     );
     console.log(encomenda)
     const response = await api.put<EncomendaDTO>(
@@ -69,7 +60,6 @@ export const getProductsByCategory = async (
     return response.data;
 };
 
-
 export const getAllCategories = async (): Promise<Category[]> => {
     const response = await api.get('/categoria');
     return response.data.map((c: any) => ({
@@ -77,3 +67,16 @@ export const getAllCategories = async (): Promise<Category[]> => {
         name: c.nome
     }));
 };
+
+// GET - Buscar recomendações (top 3 encomendas com menos calorias por categoria)
+export const getRecomendacoes = async (): Promise<RecomendacaoCategoria[]> => {
+    try {
+        const response = await api.get<RecomendacaoCategoria[]>('/recomendacao');
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao buscar recomendações:', error);
+        throw error;
+    }
+};
+
+
