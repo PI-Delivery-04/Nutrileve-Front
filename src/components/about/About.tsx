@@ -254,6 +254,29 @@ export function About() {
 
           </div>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+            <div className="bg-emerald-50 rounded-xl p-6 text-center">
+              <h3 className="text-3xl font-bold text-emerald-600">98%</h3>
+              <p className="text-gray-700 mt-2">Taxa de Satisfação</p>
+            </div>
+
+            <div className="bg-emerald-50 rounded-xl p-6 text-center">
+              <h3 className="text-3xl font-bold text-emerald-600">5.000+</h3>
+              <p className="text-gray-700 mt-2">Pedidos por Mês</p>
+            </div>
+
+            <div className="bg-emerald-50 rounded-xl p-6 text-center">
+              <h3 className="text-3xl font-bold text-emerald-600">
+                4.9 <span>⭐</span>
+              </h3>
+              <p className="text-gray-700 mt-2">Avaliação Média</p>
+            </div>
+
+            <div className="bg-emerald-50 rounded-xl p-6 text-center">
+              <h3 className="text-3xl font-bold text-emerald-600">100%</h3>
+              <p className="text-gray-700 mt-2">Ingredientes Frescos</p>
+            </div>
+          </div>
         </div>
       </div>
 
