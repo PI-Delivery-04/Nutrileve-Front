@@ -136,7 +136,7 @@ export function Home() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-green-500/20 rounded-3xl transform rotate-3"></div>
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1605291566628-6f0c7f5b9453?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoZWFsdGh5JTIwZm9vZCUyMGRlbGl2ZXJ5fGVufDF8fHx8MTc2OTQzMDc2NHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src="https://plus.unsplash.com/premium_photo-1712507237450-69c5421d9d11?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Healthy food delivery"
                 className="relative rounded-3xl shadow-2xl object-cover w-full h-[500px]"
               />
