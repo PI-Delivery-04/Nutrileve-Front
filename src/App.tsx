@@ -12,34 +12,37 @@ import FormCategoria from "./components/categoria/formcategoria/FormCategoria";
 import DeletarCategoria from "./components/categoria/deletarcategoria/DeletarCategoria";
 import { Register } from "./pages/cadastro/Cadastro";
 import { Login } from "./pages/login/Login";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (
     <>
       <ToastContainer />
-      <BrowserRouter >
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-1 ">
-            <Routes >
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/produtos" element={<Produto />} />
-              <Route path="/perfil" element={<Profile />} />
+      <AuthProvider>
+        <BrowserRouter >
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-1 ">
+              <Routes >
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/produtos" element={<Produto />} />
+                <Route path="/perfil" element={<Profile />} />
 
-              <Route path="/categorias" element={<ListaCategorias />} />
-              <Route path="/cadastrarcategoria" element={<FormCategoria />} />
-              <Route path="/editarcategoria/:id" element={<FormCategoria />} />
-              <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
+                <Route path="/categorias" element={<ListaCategorias />} />
+                <Route path="/cadastrarcategoria" element={<FormCategoria />} />
+                <Route path="/editarcategoria/:id" element={<FormCategoria />} />
+                <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
 
 
-              <Route path="/cadastro" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-            </ Routes >
-          </main>
-          <Footer />
-        </div>
-      </ BrowserRouter >
+                <Route path="/cadastro" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+              </ Routes >
+            </main>
+            <Footer />
+          </div>
+        </ BrowserRouter >
+      </AuthProvider>
     </>
   );
 }
