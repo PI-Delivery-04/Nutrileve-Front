@@ -63,10 +63,10 @@ function DeletarCategoria() {
           </h1>
         </div>
 
-        
+
         <div className="max-w-2xl mx-auto rounded-2xl border border-emerald-100 bg-white/70 backdrop-blur shadow-sm overflow-hidden">
 
-          
+
           <div className="p-8">
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
               <div className="min-w-0">
@@ -83,7 +83,7 @@ function DeletarCategoria() {
               <p className="text-rose-800 font-medium">
                 Tem certeza de que deseja apagar esta categoria?
               </p>
-              
+
             </div>
           </div>
 
@@ -93,7 +93,7 @@ function DeletarCategoria() {
             <button
               type="button"
               onClick={retornar}
-              className="rounded-xl border border-slate-200 bg-white px-5 py-3 font-medium text-slate-700 hover:bg-slate-100 transition"
+              className="rounded-xl border border-slate-200 bg-white px-5 py-3 font-medium text-slate-700 hover:bg-slate-100 transition hover:cursor-pointer"
               disabled={isLoading}
             >
               Cancelar
@@ -102,7 +102,7 @@ function DeletarCategoria() {
             <button
               type="button"
               onClick={deletarCategoria}
-              className="rounded-xl bg-rose-600 text-white px-6 py-3 font-medium hover:bg-rose-700 transition flex items-center justify-center min-w-[170px]"
+              className="rounded-xl bg-rose-600 text-white px-6 py-3 font-medium hover:bg-rose-700 transition flex items-center justify-center min-w-[170px] hover:cursor-pointer"
               disabled={isLoading}
             >
               {isLoading ? (

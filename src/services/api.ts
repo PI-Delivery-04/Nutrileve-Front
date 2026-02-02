@@ -6,7 +6,7 @@ const API_BASE_URL = 'https://nutrilevebackend.onrender.com';
 
 // ⚠️ TOKEN JWT FIXO (TEMPORÁRIO)
 // Depois você troca isso por token vindo do login
-const FIXED_JWT_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyb290QHJvb3QuY29tIiwiaWF0IjoxNzcwMDM0MTk3LCJleHAiOjE3NzAwNTIxOTd9.xcl9rc1nypC3jS25R_3My3_Jins4ugpSE8LSmoSeT-I';
+const FIXED_JWT_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXN1YXJpbyI6InJvb3RAcm9vdC5jb20iLCJ0aXBvX3VzdWFyaW8iOiJBZG1pbmlzdHJhZG9yIiwiaWF0IjoxNzcwMDQxNjIyLCJleHAiOjE3NzAwNTk2MjJ9.RYeLEroVfRbqlHKHN6vdkUEDb9J4HRMlMMFQcsSsfj8';
 
 // Instância do axios
 export const api = axios.create({

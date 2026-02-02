@@ -26,13 +26,13 @@ function CardCategoria({ categoria }: CardCategoriaProps) {
 
       <div className="p-4 flex gap-3">
         <Link to={`/editarcategoria/${categoria.id}`} className="w-full">
-          <button className="w-full rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 font-medium py-2 hover:bg-emerald-100 transition">
+          <button className="w-full rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 font-medium py-2 hover:bg-emerald-100 transition hover:cursor-pointer">
             Editar
           </button>
         </Link>
 
         <Link to={`/deletarcategoria/${categoria.id}`} className="w-full">
-          <button className="w-full rounded-xl border border-rose-200 bg-rose-50 text-rose-700 font-medium py-2 hover:bg-rose-100 transition">
+          <button className="w-full rounded-xl border border-rose-200 bg-rose-50 text-rose-700 font-medium py-2 hover:bg-rose-100 transition hover:cursor-pointer">
             Deletar
           </button>
         </Link>

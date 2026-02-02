@@ -1,12 +1,25 @@
 import { Search, ShoppingBag, User, MapPin } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import { toastSucesso } from '../../utils/toast';
 
 export function Navbar() {
 
   const location = useLocation()
+  const navigate = useNavigate();
+
+  const { usuario, handleLogout } = useContext(AuthContext)
+
+
+  function logout() {
+    handleLogout()
+    toastSucesso('O Usuário foi desconectado com sucesso!')
+    navigate('/')
+  }
 
   return (
     <>
@@ -36,9 +49,11 @@ export function Navbar() {
                 <Link to='/produtos' className="text-gray-700 hover:text-emerald-600 transition-colors">
                   Cardápio
                 </ Link>
-                <Link to="/categorias" className="text-gay-700 hover:text-emerald-600 transition-colors">
-                  Categorias
-                </Link>
+                {usuario.token !== '' &&
+                  <Link to="/categorias" className="text-gay-700 hover:text-emerald-600 transition-colors">
+                    Categorias
+                  </Link>
+                }
                 <Link to='/about' className="text-gray-700 hover:text-emerald-600 transition-colors">
                   Sobre nós
                 </ Link>
@@ -47,25 +62,62 @@ export function Navbar() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="relative text-gray-700 hover:bg-emerald-50"
+                className="relative text-gray-700 hover:bg-emerald-50 hover:cursor-pointer"
               >
                 <ShoppingBag className="w-5 h-5" />
-                <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hover:cursor-pointer">
                   0
                 </span>
               </Button>
 
               {/* LOGIN */}
-              <Link to="/login">
+              {/* <Link to="/login">
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-gray-700 hover:bg-emerald-50"
+                  className="text-gray-700 hover:bg-emerald-50 hover:cursor-pointer"
                 >
                   <User className="w-5 h-5" />
                 </Button>
               </Link>
 
+              {usuario.token !== '' &&
+                <Link to='' onClick={logout}>
+                  <Button className="bg-emerald-600 hover:bg-emerald-700 w-full">
+                    Sair
+                  </Button>
+                </Link>
+              }\ */}
+              {/* Se o token estiver vazio, mostra o botão de Login. Caso contrário, mostra o de Sair */}
+              {usuario.token === '' ? (
+                <Link to="/login">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-700 hover:bg-emerald-50 hover:cursor-pointer"
+                  >
+                    <User className="w-5 h-5" />
+                  </Button>
+                </Link>
+              ) : (
+                <div>
+                  <Link to="/perfil">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-gray-700 hover:bg-emerald-50 hover:cursor-pointer"
+                    >
+                      <User className="w-5 h-5" />
+                    </Button>
+                  </Link>
+                  <Button
+                    onClick={logout}
+                    className="bg-emerald-600 hover:bg-emerald-700 ml-2"
+                  >
+                    Sair
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div >

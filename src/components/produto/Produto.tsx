@@ -8,7 +8,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { ImageWithFallback } from '../../assets/imgfallback/ImageWithFallback';
 import { ProductForm } from './adminproduto/ProductForm';
 import { DeleteConfirmDialog } from './adminproduto/DeleteConfirmDialog';
-import { toast } from 'sonner';
 import * as api from '../../services/apiProduto';
 import { Product } from '../../models/Product';
 import { Category } from '../../models/Category';

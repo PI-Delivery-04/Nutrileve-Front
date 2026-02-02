@@ -1,14 +1,27 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SyncLoader } from "react-spinners";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import CardCategoria from "../cardcategoria/CardCategoria";
 import type Categoria from "../../../models/Categoria";
 import { buscar } from "../../../services/Service";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { toastErro } from "../../../utils/toast";
 
 function ListaCategorias() {
+  const navigate = useNavigate();
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { usuario, handleLogout } = useContext(AuthContext)
+  const token = usuario.token
+
+  useEffect(() => {
+    if (token === '') {
+      toastErro("Você precisa estar logado")
+      navigate('/')
+    }
+  }, [token])
+
 
   useEffect(() => {
     buscarCategorias();
@@ -18,12 +31,16 @@ function ListaCategorias() {
     try {
       setIsLoading(true);
       await buscar("/categoria", setCategorias);
-    } catch (error) {
+    } catch (error: any) {
+      if (error.toString().includes('401')) {
+        handleLogout()
+      }
       console.error("Erro ao buscar categorias", error);
     } finally {
       setIsLoading(false);
     }
   }
+
 
   return (
     <div className="w-full bg-emerald-50/30 pt-12">
