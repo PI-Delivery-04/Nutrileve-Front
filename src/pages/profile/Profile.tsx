@@ -15,7 +15,7 @@ interface Usuario {
   id: number;
   nome: string;
   usuario: string;
-  tipo_usuario: 'admin' | 'cliente' | 'nutricionista';
+  tipo_usuario: 'admin' | 'cliente';
   foto: string;
 }
 
@@ -146,13 +146,11 @@ export function Profile() {
   const tipoUsuarioLabels = {
     admin: 'Administrador',
     cliente: 'Cliente',
-    nutricionista: 'Nutricionista',
   };
 
   const tipoUsuarioColors = {
     admin: 'bg-red-100 text-red-700',
     cliente: 'bg-emerald-100 text-emerald-700',
-    nutricionista: 'bg-blue-100 text-blue-700',
   };
 
   const atividadesRecentes: AtividadeRecente[] = [];
@@ -254,7 +252,7 @@ export function Profile() {
                     </Label>
                     <Select
                       value={formData.tipo_usuario}
-                      onValueChange={(value: 'admin' | 'cliente' | 'nutricionista') =>
+                      onValueChange={(value: 'admin' | 'cliente') =>
                         setFormData({ ...formData, tipo_usuario: value })
                       }
                     >
@@ -263,7 +261,6 @@ export function Profile() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="cliente">Cliente</SelectItem>
-                        <SelectItem value="nutricionista">Nutricionista</SelectItem>
                         <SelectItem value="admin">Administrador</SelectItem>
                       </SelectContent>
                     </Select>
