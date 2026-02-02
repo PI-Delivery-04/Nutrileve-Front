@@ -10,11 +10,7 @@ export const api = axios.create({
 // Cadastro
 export async function cadastrarUsuario(url: string, dados: any) {
 
-  const response = await api.post(url, dados, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  })
+  const response = await api.post(url, dados)
 
   return response.data
 }

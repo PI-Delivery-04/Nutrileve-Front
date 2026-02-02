@@ -1,15 +1,18 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
 import { Label } from '../../components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card'
-import { UserPlus, ArrowLeft } from 'lucide-react'
-import { toast } from 'sonner'
-import { cadastrarUsuario } from '../../services/ServiceLogin'
 
+import { UserPlus, ArrowLeft } from 'lucide-react'
+
+import { cadastrarUsuario } from '../../services/ServiceLogin'
+import { toastSucesso, toastErro, toastInfo } from '../../utils/toast'
 
 export function Register() {
+
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -18,29 +21,27 @@ export function Register() {
     email: '',
     senha: '',
     confirmSenha: '',
-    foto: null as File | null
+    foto: '',
+    tipo_usuario: ''
   })
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    // ===== VALIDACOES =====
+    // ===== VALIDAÇÕES =====
+
+    if (!formData.tipo_usuario) {
+      toastInfo('Selecione o tipo de usuário')
+      return
+    }
 
     if (formData.senha !== formData.confirmSenha) {
-      toast.error('As senhas não coincidem', {
-        description: 'Confira os campos de senha e tente novamente.',
-        position: 'top-center',
-        duration: 3500
-      })
+      toastErro('As senhas não coincidem')
       return
     }
 
     if (formData.senha.length < 8) {
-      toast.warning('Senha muito curta', {
-        description: 'A senha deve conter no mínimo 8 caracteres.',
-        position: 'top-center',
-        duration: 3500
-      })
+      toastInfo('A senha deve conter no mínimo 8 caracteres')
       return
     }
 
@@ -53,7 +54,7 @@ export function Register() {
       form.append('nome', formData.nome)
       form.append('usuario', formData.email)
       form.append('senha', formData.senha)
-      form.append('tipo_usuario', 'CLIENTE')
+      form.append('tipo_usuario', formData.tipo_usuario)
 
       if (formData.foto) {
         form.append('foto', formData.foto)
@@ -61,13 +62,7 @@ export function Register() {
 
       await cadastrarUsuario('/usuario/cadastrar', form)
 
-
-      toast.success('Cadastro realizado com sucesso!', {
-        description: 'Agora você pode fazer login na plataforma.',
-        position: 'top-center',
-        duration: 3000
-      })
-
+      toastSucesso('Cadastro realizado com sucesso!')
       navigate('/login')
 
     } catch (error: any) {
@@ -79,11 +74,7 @@ export function Register() {
         error.response?.data?.error ||
         'Erro ao realizar cadastro'
 
-      toast.error('Falha no cadastro', {
-        description: message,
-        position: 'top-center',
-        duration: 4000
-      })
+      toastErro(message)
 
     } finally {
       setIsLoading(false)
@@ -106,6 +97,7 @@ export function Register() {
 
         <Card className="shadow-lg">
           <CardHeader className="text-center">
+
             <div className="flex justify-center mb-4">
               <img
                 src="https://ik.imagekit.io/f9nzlij8o/Gemini_Generated_Image_burmusburmusburm.png"
@@ -113,10 +105,14 @@ export function Register() {
               />
             </div>
 
-            <CardTitle className="text-2xl">Crie sua conta</CardTitle>
+            <CardTitle className="text-2xl">
+              Crie sua conta
+            </CardTitle>
+
             <CardDescription>
               Comece sua jornada por uma vida mais saudável
             </CardDescription>
+
           </CardHeader>
 
           <CardContent>
@@ -148,6 +144,27 @@ export function Register() {
               </div>
 
               <div>
+                <Label>Tipo de usuário</Label>
+
+                <select
+                  className="w-full border rounded-md p-2 text-sm"
+                  value={formData.tipo_usuario}
+                  onChange={e =>
+                    setFormData({
+                      ...formData,
+                      tipo_usuario: e.target.value
+                    })
+                  }
+                  disabled={isLoading}
+                  required
+                >
+                  <option value="">Selecione...</option>
+                  <option value="CLIENTE">Cliente</option>
+                  <option value="VENDEDOR">Vendedor</option>
+                </select>
+              </div>
+
+              <div>
                 <Label>Senha</Label>
                 <Input
                   type="password"
@@ -175,15 +192,15 @@ export function Register() {
 
               <div>
                 <Label>Foto de perfil</Label>
-
                 <Input
-                  type="file"
-                  accept="image/*"
+                  type="url"
+                  placeholder="https://example.com/imagem.jpg"
                   disabled={isLoading}
-                  onChange={(e) =>
+                  value={formData.foto}
+                  onChange={e =>
                     setFormData({
                       ...formData,
-                      foto: e.target.files ? e.target.files[0] : null
+                      foto: e.target.value
                     })
                   }
                 />

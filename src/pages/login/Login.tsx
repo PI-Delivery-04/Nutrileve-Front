@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
 import { Label } from '../../components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card'
+
 import { LogIn, ArrowLeft } from 'lucide-react'
-import { toast } from 'sonner'
+
 import { loginUsuario } from '../../services/ServiceLogin'
+import { toastSucesso, toastErro, toastInfo } from '../../utils/toast'
 
 export function Login() {
 
@@ -21,14 +24,10 @@ export function Login() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
-    // ===== VALIDACAO DE CAMPOS =====
+    // ===== VALIDAÇÃO =====
 
     if (!formData.email || !formData.senha) {
-      toast.warning('Campos obrigatórios', {
-        description: 'Preencha email e senha para continuar.',
-        position: 'top-center',
-        duration: 3500
-      })
+      toastInfo('Preencha email e senha para continuar')
       return
     }
 
@@ -43,17 +42,12 @@ export function Login() {
 
       const response = await loginUsuario('/usuario/logar', payload)
 
-      // ===== SALVAR SESSAO =====
+      // ===== SALVAR SESSÃO =====
 
       localStorage.setItem('token', response.access_token)
       localStorage.setItem('usuario', JSON.stringify(response.usuario))
 
-      toast.success('Login realizado com sucesso!', {
-        description: 'Você será redirecionado para a página principal.',
-        position: 'top-center',
-        duration: 3000
-      })
-
+      toastSucesso('Login realizado com sucesso!')
       navigate('/')
 
     } catch (error: any) {
@@ -64,11 +58,7 @@ export function Login() {
         error.response?.data?.message ||
         'Email ou senha inválidos'
 
-      toast.error('Falha no login', {
-        description: message,
-        position: 'top-center',
-        duration: 4000
-      })
+      toastErro(message)
 
     } finally {
       setIsLoading(false)
