@@ -1,12 +1,8 @@
 import axios from 'axios';
 
-// URL base do backend
-// const API_BASE_URL = 'http://localhost:8080/api';
-const API_BASE_URL = 'https://nutrilevebackend.onrender.com';
-
 // Instância do axios
 export const api = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: import.meta.env.VITE_API_URL,
     headers: {
         'Content-Type': 'application/json',
         // Authorization: `Bearer ${FIXED_JWT_TOKEN}`,
