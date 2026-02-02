@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useContext, useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { Button } from '../../components/ui/button'
@@ -10,11 +10,14 @@ import { UserPlus, ArrowLeft } from 'lucide-react'
 
 import { cadastrarUsuario } from '../../services/ServiceLogin'
 import { toastSucesso, toastErro, toastInfo } from '../../utils/toast'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export function Register() {
 
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
+  const { usuario, handleLogout } = useContext(AuthContext)
+  const token = usuario.token
 
   const [formData, setFormData] = useState({
     nome: '',
@@ -60,8 +63,9 @@ export function Register() {
         form.append('foto', formData.foto)
       }
 
-      await cadastrarUsuario('/usuario/cadastrar', form)
-
+      await cadastrarUsuario('/usuario/cadastrar', form, {
+        headers: { Authorization: token }
+      })
       toastSucesso('Cadastro realizado com sucesso!')
       navigate('/login')
 

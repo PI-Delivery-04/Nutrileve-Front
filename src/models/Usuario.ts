@@ -1,8 +1,9 @@
-export default interface Usuario {
-  id: number
-  nome: string
-  usuario: string   
-  tipo_usuario: string
-  foto?: string
+// models/Usuario.ts
+export interface Usuario {
+  id: number;
+  nome: string;
+  usuario: string;
+  tipo_usuario: 'vendedor' | 'cliente';
+  foto?: string;
   senha?: string
 }

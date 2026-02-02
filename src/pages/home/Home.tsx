@@ -2,27 +2,31 @@ import { ArrowRight, Clock, Leaf, Sparkles, Star } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { ImageWithFallback } from '../../components/ui/ImageWithFallback';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { RecomendacaoCategoria } from '../../models/Recomendacao';
 import { getRecomendacoes } from '../../services/apiProduto';
 import { toastErro, toastInfo, toastSucesso } from '../../utils/toast';
 import { Recommendacao } from '../../components/recomendacao/Recomendacao';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export function Home() {
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [recomendacoes, setRecomendacoes] = useState<RecomendacaoCategoria[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { usuario, handleLogout } = useContext(AuthContext)
+  const token = usuario.token
 
   async function handleGetRecommendations() {
     if (showRecommendations) {
-      // Se já está mostrando, apenas fechar
       setShowRecommendations(false);
       return;
     }
 
     setIsLoading(true);
     try {
-      const data = await getRecomendacoes();
+      const data = await getRecomendacoes({
+        headers: { Authorization: token }
+      });
 
       if (data.length === 0) {
         toastInfo('Nenhuma recomendação disponível no momento');
@@ -39,13 +43,11 @@ export function Home() {
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 100);
+      }, 150);
     } catch (error) {
-      console.error('Erro ao buscar recomendações:', error);
-      toastErro('Erro ao carregar recomendações. Tente novamente.');
-
-      setShowRecommendations(true);
-      toastInfo('Mostrando dados de exemplo (API não conectada)');
+      if (error == '401') {
+        toastInfo('Por favor faça Login para acessar nossas recomendações.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -60,6 +62,9 @@ export function Home() {
         break;
       case 'about':
         nav('/about')
+        break;
+      case 'login':
+        nav('/login')
         break;
       default:
         nav('/')
@@ -87,7 +92,15 @@ export function Home() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-lg px-8 cursor-pointer" onClick={() => redirect('prod')}>
+                <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-lg px-8 cursor-pointer"
+                  onClick={() => {
+                    if (token) {
+                      redirect('prod')
+                    } else {
+                      redirect('login')
+                    }
+                  }}
+                >
                   Ver Cardápio
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>

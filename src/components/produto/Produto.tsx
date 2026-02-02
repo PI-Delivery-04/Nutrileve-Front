@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Flame, Heart, Leaf, Plus, Star, Edit, Trash2, Search, Filter, RefreshCw, Eye, EyeOff } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
@@ -12,12 +12,15 @@ import * as api from '../../services/apiProduto';
 import { Product } from '../../models/Product';
 import { Category } from '../../models/Category';
 import { toastSucesso } from '../../utils/toast';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export function Produto() {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { usuario, handleLogout } = useContext(AuthContext)
+  const token = usuario.token
 
   // Form & Dialogs
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -45,7 +48,9 @@ export function Produto() {
   const loadProducts = async () => {
     setIsLoading(true);
     try {
-      const data = await api.getAllProducts();
+      const data = await api.getAllProducts({
+        headers: { Authorization: token }
+      })
 
       if (data.length === 0) {
         // setProducts(mockProducts);
@@ -61,7 +66,9 @@ export function Produto() {
 
   const loadCategories = async () => {
     try {
-      const data = await api.getAllCategories();
+      const data = await api.getAllCategories({
+        headers: { Authorization: token }
+      })
       setCategories(data);
     } catch {
       setCategories([]);
@@ -115,11 +122,15 @@ export function Produto() {
   const handleSaveProduct = async (product: Product) => {
     try {
       if (product.id) {
-        const updated = await api.updateProduct(product);
+        const updated = await api.updateProduct(product, {
+          headers: { Authorization: token }
+        })
         setProducts(prev => prev.map(p => p.id === product.id ? updated : p));
         toastSucesso('Produto atualizado com sucesso!');
       } else {
-        const created = await api.createProduct(product);
+        const created = await api.createProduct(product, {
+          headers: { Authorization: token }
+        });
         setProducts(prev => [...prev, created]);
         toastSucesso('Produto criado com sucesso!');
       }
@@ -141,7 +152,9 @@ export function Produto() {
     if (!productToDelete?.id) return;
 
     try {
-      await api.deleteProduct(productToDelete.id);
+      await api.deleteProduct(productToDelete.id, {
+        headers: { Authorization: token }
+      })
       setProducts(prev => prev.filter(p => p.id !== productToDelete.id));
       toastSucesso('Produto excluído com sucesso!');
     } catch (error) {

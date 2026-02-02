@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { ClipLoader } from "react-spinners"
 
 import type Categoria from "../../../models/Categoria"
 import { buscar, deletar } from "../../../services/Service"
 import { toastErro, toastSucesso } from "../../../utils/toast"
+import { AuthContext } from "../../../contexts/AuthContext"
 
 function DeletarCategoria() {
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
+  const { usuario, handleLogout } = useContext(AuthContext)
+  const token = usuario.token
 
   const [categoria, setCategoria] = useState<Categoria>({
     id: 0,
@@ -26,7 +29,9 @@ function DeletarCategoria() {
 
   async function buscarPorId(id: string) {
     try {
-      await buscar(`/categoria/${id}`, setCategoria)
+      await buscar(`/categoria/${id}`, setCategoria, {
+        headers: { Authorization: token }
+      })
     } catch (error) {
       console.error("Erro ao buscar categoria", error)
     }
@@ -42,7 +47,9 @@ function DeletarCategoria() {
     setIsLoading(true)
 
     try {
-      await deletar(`/categoria/${id}`)
+      await deletar(`/categoria/${id}`, {
+        headers: { Authorization: token }
+      })
       toastSucesso("Categoria apagada com sucesso!")
     } catch (error) {
       toastErro("Erro ao deletar categoria")
