@@ -5,7 +5,6 @@ import { About } from "./components/about/About";
 import { Navbar } from "./components/navbar/Navbar";
 import { Home } from "./pages/home/Home";
 import { Footer } from "./components/footer/Footer";
-import { Profile } from "./pages/profile/Profile";
 import { Produto } from "./components/produto/Produto";
 import ListaCategorias from "./components/categoria/listacategorias/ListaCategorias";
 import FormCategoria from "./components/categoria/formcategoria/FormCategoria";
@@ -13,6 +12,8 @@ import DeletarCategoria from "./components/categoria/deletarcategoria/DeletarCat
 import { Register } from "./pages/cadastro/Cadastro";
 import { Login } from "./pages/login/Login";
 import { AuthProvider } from "./contexts/AuthContext";
+
+import { Profile } from "./pages/profile/altprofile";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/produtos" element={<Produto />} />
-                <Route path="/perfil" element={<Profile />} />
+                <Route path="/perfil/" element={<Profile />} />
 
                 <Route path="/categorias" element={<ListaCategorias />} />
                 <Route path="/cadastrarcategoria" element={<FormCategoria />} />

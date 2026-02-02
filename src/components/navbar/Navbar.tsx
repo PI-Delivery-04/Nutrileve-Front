@@ -46,13 +46,16 @@ export function Navbar() {
 
             <div className="flex items-center gap-1">
               <nav className="hidden md:flex gap-8 pr-4">
-                <Link to='/produtos' className="text-gray-700 hover:text-emerald-600 transition-colors">
-                  Cardápio
-                </ Link>
                 {usuario.token !== '' &&
-                  <Link to="/categorias" className="text-gay-700 hover:text-emerald-600 transition-colors">
-                    Categorias
-                  </Link>
+                  <div className="hidden md:flex gap-8 pr-4">
+                    <Link to='/produtos' className="text-gray-700 hover:text-emerald-600 transition-colors">
+                      Cardápio
+                    </ Link>
+
+                    <Link to="/categorias" className="text-gay-700 hover:text-emerald-600 transition-colors">
+                      Categorias
+                    </Link>
+                  </div>
                 }
                 <Link to='/about' className="text-gray-700 hover:text-emerald-600 transition-colors">
                   Sobre nós
@@ -70,25 +73,6 @@ export function Navbar() {
                 </span>
               </Button>
 
-              {/* LOGIN */}
-              {/* <Link to="/login">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-gray-700 hover:bg-emerald-50 hover:cursor-pointer"
-                >
-                  <User className="w-5 h-5" />
-                </Button>
-              </Link>
-
-              {usuario.token !== '' &&
-                <Link to='' onClick={logout}>
-                  <Button className="bg-emerald-600 hover:bg-emerald-700 w-full">
-                    Sair
-                  </Button>
-                </Link>
-              }\ */}
-              {/* Se o token estiver vazio, mostra o botão de Login. Caso contrário, mostra o de Sair */}
               {usuario.token === '' ? (
                 <Link to="/login">
                   <Button
@@ -112,7 +96,7 @@ export function Navbar() {
                   </Link>
                   <Button
                     onClick={logout}
-                    className="bg-emerald-600 hover:bg-emerald-700 ml-2"
+                    className="bg-emerald-600 hover:bg-emerald-700 ml-2 hover:cursor-pointer"
                   >
                     Sair
                   </Button>

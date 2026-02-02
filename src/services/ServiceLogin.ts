@@ -1,16 +1,17 @@
-import axios from "axios";
+// import axios from "axios";
 
-export const api = axios.create({
-  baseURL: 'https://nutrilevebackend.onrender.com',
-  headers: {
-    "Content-Type": "application/json"
-  }
-})
+// export const api = axios.create({
+//   baseURL: 'https://nutrilevebackend.onrender.com',
+//   headers: {
+//     "Content-Type": "application/json"
+//   }
+// })
+import { api } from './api';
 
 // Cadastro
-export async function cadastrarUsuario(url: string, dados: any) {
+export async function cadastrarUsuario(url: string, dados: any, header: Object) {
 
-  const response = await api.post(url, dados)
+  const response = await api.post(url, dados, header)
 
   return response.data
 }

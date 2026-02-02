@@ -30,12 +30,14 @@ function ListaCategorias() {
   async function buscarCategorias() {
     try {
       setIsLoading(true);
-      await buscar("/categoria", setCategorias);
+      await buscar("/categoria", setCategorias, {
+        headers: { Authorization: token }
+      })
     } catch (error: any) {
       if (error.toString().includes('401')) {
+        console.error("Erro ao buscar categorias", error);
         handleLogout()
       }
-      console.error("Erro ao buscar categorias", error);
     } finally {
       setIsLoading(false);
     }

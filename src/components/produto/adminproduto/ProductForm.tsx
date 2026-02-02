@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Category } from '../../../models/Category';
 import { getAllCategories } from '../../../services/apiProduto';
 import { Product } from '../../../models/Product';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 
 interface ProductFormProps {
@@ -19,6 +20,10 @@ interface ProductFormProps {
 }
 
 export function ProductForm({ product, isOpen, onClose, onSave }: ProductFormProps) {
+
+    const { usuario, handleLogout } = useContext(AuthContext)
+    const token = usuario.token
+
     const [formData, setFormData] = useState<Product>({
         name: '',
         description: '',
@@ -60,7 +65,9 @@ export function ProductForm({ product, isOpen, onClose, onSave }: ProductFormPro
     const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
-        getAllCategories().then(setCategories);
+        getAllCategories({
+            headers: { Authorization: token }
+        }).then(setCategories);
     }, []);
 
 

@@ -1,24 +1,17 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import { Camera, Save, Trash2, Edit2, User as UserIcon, Lock, Mail, Shield, X, ShoppingBag, Clock, Heart } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Card } from '../../components/ui/card';
 import { Badge } from '../../components/ui/badge';
-import { Dialog, DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
-import { Label } from '../../components/label/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/select/select';
+import { Dialog, DialogDescription, DialogTitle, DialogContent } from '@radix-ui/react-dialog';
+import { Label } from '../../components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@radix-ui/react-select'
 import { toast } from 'sonner';
-import { DialogContent, DialogFooter, DialogHeader } from '../../components/dialog/dialog';
 import { api } from '../../services/api';
-
-interface Usuario {
-  id: number;
-  nome: string;
-  usuario: string;
-  tipo_usuario: 'admin' | 'cliente';
-  foto: string;
-}
-
+import { AuthContext } from '../../contexts/AuthContext';
+import { Usuario } from '../../models/Usuario';
+import { DialogFooter, DialogHeader } from '../../components/ui/dialog';
 
 interface AtividadeRecente {
   id: number;
@@ -29,7 +22,7 @@ interface AtividadeRecente {
   cor: string;
 }
 export function Profile() {
-  const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [usuarioForm, setUsuarioForm] = useState<Usuario | null>(null);
   const [formData, setFormData] = useState<Usuario | null>(null);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -37,6 +30,9 @@ export function Profile() {
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
 
   const [loading, setLoading] = useState(true);
+  const { usuario, handleLogout } = useContext(AuthContext)
+  const token = usuario.token
+
 
   const [passwords, setPasswords] = useState({
     current: '',
@@ -52,8 +48,10 @@ export function Profile() {
 
   async function carregarUsuario() {
     try {
-      const response = await api.get('/usuario/me');
-      setUsuario(response.data);
+      const response = await api.get(`/usuario/${usuario.id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setUsuarioForm(response.data);
       setFormData(response.data);
     } catch (error) {
       toast.error('Erro ao carregar dados do perfil');
@@ -83,8 +81,10 @@ export function Profile() {
     }
 
     try {
-      const response = await api.put('/usuario/me', formData);
-      setUsuario(response.data);
+      const response = await api.put('/usuario/me', formData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setUsuarioForm(response.data);
       setFormData(response.data);
       setIsEditing(false);
       toast.success('Perfil atualizado com sucesso');
@@ -94,7 +94,7 @@ export function Profile() {
   }
 
   function handleCancel() {
-    setFormData(usuario);
+    setFormData(usuarioForm);
     setIsEditing(false);
   }
 
@@ -130,7 +130,9 @@ export function Profile() {
 
   async function handleDelete() {
     try {
-      await api.delete('/usuario/me');
+      await api.delete('/usuario/me', {
+        headers: { Authorization: token }
+      });
       toast.success('Conta excluída com sucesso');
       localStorage.clear();
       window.location.href = '/login';
@@ -144,12 +146,12 @@ export function Profile() {
   }
 
   const tipoUsuarioLabels = {
-    admin: 'Administrador',
+    vendedor: 'Administrador',
     cliente: 'Cliente',
   };
 
   const tipoUsuarioColors = {
-    admin: 'bg-red-100 text-red-700',
+    vendedor: 'bg-red-100 text-red-700',
     cliente: 'bg-emerald-100 text-emerald-700',
   };
 
@@ -252,7 +254,7 @@ export function Profile() {
                     </Label>
                     <Select
                       value={formData.tipo_usuario}
-                      onValueChange={(value: 'admin' | 'cliente') =>
+                      onValueChange={(value: 'vendedor' | 'cliente') =>
                         setFormData({ ...formData, tipo_usuario: value })
                       }
                     >
