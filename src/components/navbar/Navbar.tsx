@@ -1,24 +1,26 @@
-import { Search, ShoppingBag, User, MapPin } from 'lucide-react';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
-import { toastSucesso } from '../../utils/toast';
+import { Search, ShoppingBag, User, MapPin } from "lucide-react";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
+import { toastSucesso } from "../../utils/toast";
+import { UseCart } from "../../contexts/CartContext";
+import { CartDrawer } from "../cart/CartDrawer";
 
 export function Navbar() {
-
-  const location = useLocation()
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const { usuario, handleLogout } = useContext(AuthContext)
-
+  const { usuario, handleLogout } = useContext(AuthContext);
+  const { totalItems } = UseCart();
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   function logout() {
-    handleLogout()
-    toastSucesso('O Usuário foi desconectado com sucesso!')
-    navigate('/')
+    handleLogout();
+    toastSucesso("O Usuário foi desconectado com sucesso!");
+    navigate("/");
   }
 
   return (
@@ -27,10 +29,14 @@ export function Navbar() {
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-5">
-              <Link to='/'>
+              <Link to="/">
                 <div className="flex items-center gap-2">
                   <div className="w-10 h-10 bg-white-500/90 rounded-xl flex items-center justify-center shadow-sm">
-                    <img src="https://ik.imagekit.io/f9nzlij8o/Gemini_Generated_Image_burmusburmusburm.png" alt="Logo" className="w-10 h-10 object-contain rounded-full" />
+                    <img
+                      src="https://ik.imagekit.io/f9nzlij8o/Gemini_Generated_Image_burmusburmusburm.png"
+                      alt="Logo"
+                      className="w-10 h-10 object-contain rounded-full"
+                    />
                   </div>
                   <span className="font-semibold text-lg text-gray-900">
                     NutriLeve
@@ -46,34 +52,50 @@ export function Navbar() {
 
             <div className="flex items-center gap-1">
               <nav className="hidden md:flex gap-8 pr-4">
-                {usuario.token !== '' &&
+                {usuario.token !== "" && (
                   <div className="hidden md:flex gap-8 pr-4">
-                    <Link to='/produtos' className="text-gray-700 hover:text-emerald-600 transition-colors">
+                    <Link
+                      to="/produtos"
+                      className="text-gray-700 hover:text-emerald-600 transition-colors"
+                    >
                       Cardápio
-                    </ Link>
+                    </Link>
 
-                    <Link to="/categorias" className="text-gay-700 hover:text-emerald-600 transition-colors">
+                    <Link
+                      to="/categorias"
+                      className="text-gay-700 hover:text-emerald-600 transition-colors"
+                    >
                       Categorias
                     </Link>
                   </div>
-                }
-                <Link to='/about' className="text-gray-700 hover:text-emerald-600 transition-colors">
+                )}
+                <Link
+                  to="/about"
+                  className="text-gray-700 hover:text-emerald-600 transition-colors"
+                >
                   Sobre nós
-                </ Link>
+                </Link>
               </nav>
 
               <Button
                 variant="ghost"
                 size="icon"
+                onClick={() => setIsCartOpen(true)}
                 className="relative text-gray-700 hover:bg-emerald-50 hover:cursor-pointer"
               >
                 <ShoppingBag className="w-5 h-5" />
-                <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hover:cursor-pointer">
-                  0
-                </span>
+                {totalItems > 0 && (
+                  <span
+                    className="absolute -top-1 -right-1 bg-emerald-500 text-white text-[10px]
+                 w-4 h-4 rounded-full flex items-center justify-center
+                  hover:cursor-pointer"
+                  >
+                    {totalItems > 99 ? "99+" : totalItems}
+                  </span>
+                )}
               </Button>
 
-              {usuario.token === '' ? (
+              {usuario.token === "" ? (
                 <Link to="/login">
                   <Button
                     variant="ghost"
@@ -104,8 +126,13 @@ export function Navbar() {
               )}
             </div>
           </div>
-        </div >
-      </header >
+        </div>
+      </header>
+
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
+}
+function useCart(): { totalItems: any } {
+  throw new Error("Function not implemented.");
 }

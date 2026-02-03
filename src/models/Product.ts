@@ -1,22 +1,22 @@
-import { Category } from "./Category"
+import { Category } from "./Category";
 
 export interface Product {
-    id?: number
-    name: string
-    description: string
-    calories: number
-    price: number
-    rating?: number
+  restaurant?: null;
+  id?: number;
+  name: string;
+  description: string;
+  calories: number;
+  price: number;
+  rating?: number;
 
-    image: string
-    category: Category
-    available: boolean
+  image: string;
+  category: Category;
+  available: boolean;
 
-
-    // Campos visuais (mock)
-    dietType?: string[]
-    tags?: string[]
-    protein: number
-    carbs: number
-    fat: number
+  // Campos visuais (mock)
+  dietType?: string[];
+  tags?: string[];
+  protein: number;
+  carbs: number;
+  fat: number;
 }

@@ -14,6 +14,7 @@ import { Category } from '../../models/Category';
 import { toastErro, toastSucesso } from '../../utils/toast';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { AddToCartButton } from '../cart/AddToCartButton';
 
 export function Produto() {
   const navigate = useNavigate();
@@ -21,8 +22,8 @@ export function Produto() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { usuario, handleLogout } = useContext(AuthContext)
-  const token = usuario.token
+  const { usuario, handleLogout } = useContext(AuthContext);
+  const token = usuario.token;
 
   // Form & Dialogs
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -31,7 +32,7 @@ export function Produto() {
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
 
   // Filtros
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [categories, setCategories] = useState<Category[]>([]);
   const [categoryFilter, setCategoryFilter] = useState<number | 'all'>('all');
   const [sortBy, setSortBy] = useState<'price-asc' | 'price-desc' | 'rating-desc' | 'none'>('none');
@@ -54,13 +55,12 @@ export function Produto() {
     applyFilters();
   }, [products, searchTerm, categoryFilter, sortBy]);
 
-
   const loadProducts = async () => {
     setIsLoading(true);
     try {
       const data = await api.getAllProducts({
-        headers: { Authorization: token }
-      })
+        headers: { Authorization: token },
+      });
 
       if (data.length === 0) {
         // setProducts(mockProducts);
@@ -77,23 +77,23 @@ export function Produto() {
   const loadCategories = async () => {
     try {
       const data = await api.getAllCategories({
-        headers: { Authorization: token }
-      })
+        headers: { Authorization: token },
+      });
       setCategories(data);
     } catch {
       setCategories([]);
     }
   };
 
-
   const applyFilters = () => {
     let filtered = [...products];
 
     // Filtro de busca
     if (searchTerm) {
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.description.toLowerCase().includes(searchTerm.toLowerCase()),
       );
     }
 
@@ -111,7 +111,7 @@ export function Produto() {
 
     if (categoryFilter !== 'all') {
       filtered = filtered.filter(
-        product => product.category?.id === categoryFilter
+        (product) => product.category?.id === categoryFilter,
       );
     }
 
@@ -119,8 +119,8 @@ export function Produto() {
   };
 
   const toggleFavorite = (id: number) => {
-    setFavorites(prev =>
-      prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id],
     );
   };
 
@@ -145,26 +145,30 @@ export function Produto() {
     try {
       if (product.id) {
         const updated = await api.updateProduct(product, {
-          headers: { Authorization: token }
-        })
-        setProducts(prev => prev.map(p => p.id === product.id ? updated : p));
-        toastSucesso('Produto atualizado com sucesso!');
+          headers: { Authorization: token },
+        });
+        setProducts((prev) =>
+          prev.map((p) => (p.id === product.id ? updated : p)),
+        );
+        toastSucesso("Produto atualizado com sucesso!");
       } else {
         const created = await api.createProduct(product, {
-          headers: { Authorization: token }
+          headers: { Authorization: token },
         });
-        setProducts(prev => [...prev, created]);
-        toastSucesso('Produto criado com sucesso!');
+        setProducts((prev) => [...prev, created]);
+        toastSucesso("Produto criado com sucesso!");
       }
       setIsFormOpen(false);
     } catch (error) {
       if (product.id) {
-        setProducts(prev => prev.map(p => p.id === product.id ? product : p));
-        toastSucesso('Produto atualizado (modo offline)');
+        setProducts((prev) =>
+          prev.map((p) => (p.id === product.id ? product : p)),
+        );
+        toastSucesso("Produto atualizado (modo offline)");
       } else {
         const newProduct = { ...product, id: Date.now() };
-        setProducts(prev => [...prev, newProduct]);
-        toastSucesso('Produto criado (modo offline)');
+        setProducts((prev) => [...prev, newProduct]);
+        toastSucesso("Produto criado (modo offline)");
       }
       setIsFormOpen(false);
     }
@@ -175,13 +179,13 @@ export function Produto() {
 
     try {
       await api.deleteProduct(productToDelete.id, {
-        headers: { Authorization: token }
-      })
-      setProducts(prev => prev.filter(p => p.id !== productToDelete.id));
-      toastSucesso('Produto excluído com sucesso!');
+        headers: { Authorization: token },
+      });
+      setProducts((prev) => prev.filter((p) => p.id !== productToDelete.id));
+      toastSucesso("Produto excluído com sucesso!");
     } catch (error) {
-      setProducts(prev => prev.filter(p => p.id !== productToDelete.id));
-      toastSucesso('Produto excluído (modo offline)');
+      setProducts((prev) => prev.filter((p) => p.id !== productToDelete.id));
+      toastSucesso("Produto excluído (modo offline)");
     }
   };
 
@@ -203,7 +207,8 @@ export function Produto() {
             Escolha Sua Refeição Ideal
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-            Todas as opções incluem informações nutricionais completas para você fazer escolhas conscientes
+            Todas as opções incluem informações nutricionais completas para você
+            fazer escolhas conscientes
           </p>
 
           {/* Action Buttons */}
@@ -214,7 +219,7 @@ export function Produto() {
               className="gap-2 hover:cursor-pointer"
             >
               <Filter className="w-4 h-4" />
-              {showFilters ? 'Ocultar Filtros' : 'Mostrar Filtros'}
+              {showFilters ? "Ocultar Filtros" : "Mostrar Filtros"}
             </Button>
             <Button
               onClick={loadProducts}
@@ -222,7 +227,9 @@ export function Produto() {
               disabled={isLoading}
               className="gap-2 hover:cursor-pointer"
             >
-              <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+              <RefreshCw
+                className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`}
+              />
               Atualizar
             </Button>
             <Button
@@ -242,7 +249,9 @@ export function Produto() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <Filter className="w-5 h-5 text-emerald-600" />
-                  <h3 className="font-semibold text-gray-900">Filtros Avançados</h3>
+                  <h3 className="font-semibold text-gray-900">
+                    Filtros Avançados
+                  </h3>
                 </div>
               </div>
 
@@ -261,7 +270,7 @@ export function Produto() {
                 <Select
                   value={String(categoryFilter)}
                   onValueChange={(value) =>
-                    setCategoryFilter(value === 'all' ? 'all' : Number(value))
+                    setCategoryFilter(value === "all" ? "all" : Number(value))
                   }
                 >
                   <SelectTrigger>
@@ -276,7 +285,7 @@ export function Produto() {
                         Nenhuma categoria cadastrada
                       </SelectItem>
                     ) : (
-                      categories.map(category => (
+                      categories.map((category) => (
                         <SelectItem
                           key={category.id}
                           value={String(category.id)}
@@ -315,7 +324,8 @@ export function Produto() {
 
               {/* Results Count */}
               <div className="mt-4 text-sm text-gray-600">
-                Mostrando <strong>{filteredProducts.length}</strong> de <strong>{products.length}</strong> produtos
+                Mostrando <strong>{filteredProducts.length}</strong> de{" "}
+                <strong>{products.length}</strong> produtos
               </div>
             </CardContent>
           </Card>
@@ -330,11 +340,13 @@ export function Produto() {
         ) : filteredProducts.length === 0 ? (
           <Card>
             <CardContent className="p-12 text-center">
-              <p className="text-gray-600 mb-4">Nenhum produto encontrado com os filtros aplicados.</p>
+              <p className="text-gray-600 mb-4">
+                Nenhum produto encontrado com os filtros aplicados.
+              </p>
               <Button
                 variant="outline"
                 onClick={clearFilters}
-                className='hover:cursor-pointer'
+                className="hover:cursor-pointer"
               >
                 Limpar Filtros
               </Button>
@@ -342,8 +354,11 @@ export function Produto() {
           </Card>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map(product => (
-              <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
+            {filteredProducts.map((product) => (
+              <Card
+                key={product.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow group"
+              >
                 <div className="relative">
                   <ImageWithFallback
                     src={product.image}
@@ -356,11 +371,15 @@ export function Produto() {
                     <Button
                       size="icon"
                       variant="ghost"
-                      className={`bg-white/90 hover:bg-white backdrop-blur-sm hover:cursor-pointer ${favorites.includes(product.id || 0) ? 'text-red-500' : 'text-gray-600'
+                      className={`bg-white/90 hover:bg-white backdrop-blur-sm hover:cursor-pointer ${favorites.includes(product.id || 0)
+                        ? "text-red-500"
+                        : "text-gray-600"
                         }`}
                       onClick={() => toggleFavorite(product.id || 0)}
                     >
-                      <Heart className={`w-5 h-5 ${favorites.includes(product.id || 0) ? 'fill-current' : ''}`} />
+                      <Heart
+                        className={`w-5 h-5 ${favorites.includes(product.id || 0) ? "fill-current" : ""}`}
+                      />
                     </Button>
                   </div>
 
@@ -392,26 +411,36 @@ export function Produto() {
                         Indisponível
                       </Badge>
                     )}
-                    {product.tags && product.tags.slice(0, 2).map(tag => (
-                      <Badge key={tag} className="bg-emerald-600 hover:bg-emerald-600">
-                        {tag}
-                      </Badge>
-                    ))}
+                    {product.tags &&
+                      product.tags.slice(0, 2).map((tag) => (
+                        <Badge
+                          key={tag}
+                          className="bg-emerald-600 hover:bg-emerald-600"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
                   </div>
                 </div>
 
                 <CardContent className="p-5">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-bold text-lg text-gray-900">{product.name}</h3>
+                    <h3 className="font-bold text-lg text-gray-900">
+                      {product.name}
+                    </h3>
                     {/* {product.rating && ( */}
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                      <span className="text-sm font-semibold text-gray-700">{product.rating}</span>
+                      <span className="text-sm font-semibold text-gray-700">
+                        {product.rating}
+                      </span>
                     </div>
                     {/* )} */}
                   </div>
 
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">{product.description}</p>
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                    {product.description}
+                  </p>
 
                   {/* Diet Types */}
                   {/* {product.dietType.length > 0 && (
@@ -428,20 +457,30 @@ export function Produto() {
                   <div className="grid grid-cols-4 gap-2 mb-4 p-3 bg-gray-50 rounded-lg">
                     <div className="text-center">
                       <Flame className="w-4 h-4 text-orange-500 mx-auto mb-1" />
-                      <p className="text-xs font-semibold text-gray-900">{product.calories}</p>
+                      <p className="text-xs font-semibold text-gray-900">
+                        {product.calories}
+                      </p>
                       <p className="text-xs text-gray-600">kcal</p>
                     </div>
-                    <div className="text-center">
-                      <p className="text-xs font-semibold text-gray-900">{product.protein}g</p>
-                      <p className="text-xs text-gray-600">Prot.</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-xs font-semibold text-gray-900">{product.carbs}g</p>
-                      <p className="text-xs text-gray-600">Carb.</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-xs font-semibold text-gray-900">{product.fat}g</p>
-                      <p className="text-xs text-gray-600">Gord.</p>
+                    <div className='flex items-center gap-10'>
+                      <div className="text-center">
+                        <p className="text-xs font-semibold text-gray-900">
+                          {product.protein}g
+                        </p>
+                        <p className="text-xs text-gray-600">Prot.</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-xs font-semibold text-gray-900">
+                          {product.carbs}g
+                        </p>
+                        <p className="text-xs text-gray-600">Carb.</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-xs font-semibold text-gray-900">
+                          {product.fat}g
+                        </p>
+                        <p className="text-xs text-gray-600">Gord.</p>
+                      </div>
                     </div>
                   </div>
 
@@ -451,13 +490,7 @@ export function Produto() {
                         R$ {product.price.toFixed(2)}
                       </p>
                     </div>
-                    <Button
-                      className="bg-emerald-600 hover:bg-emerald-700 hover:cursor-pointer"
-                      disabled={!product.available}
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Adicionar
-                    </Button>
+                    <AddToCartButton product={product} />
                   </div>
                 </CardContent>
               </Card>
@@ -477,7 +510,7 @@ export function Produto() {
       {/* Delete Confirmation Dialog */}
       <DeleteConfirmDialog
         isOpen={isDeleteDialogOpen}
-        productName={productToDelete?.name || ''}
+        productName={productToDelete?.name || ""}
         onClose={() => setIsDeleteDialogOpen(false)}
         onConfirm={handleDeleteProduct}
       />
