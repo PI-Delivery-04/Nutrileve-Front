@@ -25,9 +25,8 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
   };
 
   const handleCheckout = () => {
-    console.log("Indo para checkout...", items);
-    navigate("/checkout"); // Se usar React Router
-    // OU: window.location.href = '/checkout'
+    onClose();
+    navigate("/checkout");
   };
 
   return (

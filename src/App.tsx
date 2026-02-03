@@ -14,6 +14,7 @@ import { Login } from "./pages/login/Login";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { Profile } from "./pages/profile/altprofile";
+import { Checkout } from "./pages/pagamento/pagamento";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                   <Route path="/about" element={<About />} />
                   <Route path="/produtos" element={<Produto />} />
                   <Route path="/perfil/" element={<Profile />} />
+                  <Route path="/checkout" element={<Checkout />} />
 
                   <Route path="/categorias" element={<ListaCategorias />} />
                   <Route
