@@ -11,10 +11,12 @@ import { DeleteConfirmDialog } from './adminproduto/DeleteConfirmDialog';
 import * as api from '../../services/apiProduto';
 import { Product } from '../../models/Product';
 import { Category } from '../../models/Category';
-import { toastSucesso } from '../../utils/toast';
+import { toastErro, toastSucesso } from '../../utils/toast';
 import { AuthContext } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export function Produto() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]);
@@ -32,8 +34,16 @@ export function Produto() {
   const [searchTerm, setSearchTerm] = useState('');
   const [categories, setCategories] = useState<Category[]>([]);
   const [categoryFilter, setCategoryFilter] = useState<number | 'all'>('all');
-  const [availabilityFilter, setAvailabilityFilter] = useState('available'); // Só mostrar disponíveis por padrão
+  const [sortBy, setSortBy] = useState<'price-asc' | 'price-desc' | 'rating-desc' | 'none'>('none');
+
   const [showFilters, setShowFilters] = useState(false);
+
+  useEffect(() => {
+    if (token === '') {
+      toastErro("Você precisa estar logado")
+      navigate('/')
+    }
+  }, [token])
 
   useEffect(() => {
     loadProducts();
@@ -42,7 +52,7 @@ export function Produto() {
 
   useEffect(() => {
     applyFilters();
-  }, [products, searchTerm, categoryFilter, availabilityFilter]);
+  }, [products, searchTerm, categoryFilter, sortBy]);
 
 
   const loadProducts = async () => {
@@ -85,6 +95,18 @@ export function Produto() {
         product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         product.description.toLowerCase().includes(searchTerm.toLowerCase())
       );
+    }
+
+    if (sortBy === 'price-asc') {
+      filtered.sort((a, b) => a.price - b.price);
+    }
+
+    if (sortBy === 'price-desc') {
+      filtered.sort((a, b) => b.price - a.price);
+    }
+
+    if (sortBy === 'rating-desc') {
+      filtered.sort((a, b) => b.rating - a.rating);
     }
 
     if (categoryFilter !== 'all') {
@@ -166,7 +188,8 @@ export function Produto() {
   const clearFilters = () => {
     setSearchTerm('');
     setCategoryFilter('all');
-    setAvailabilityFilter('available');
+    setSortBy('none');
+    // setAvailabilityFilter('available');
   };
 
   return (
@@ -265,6 +288,17 @@ export function Produto() {
                   </SelectContent>
                 </Select>
 
+                <Select value={sortBy} onValueChange={(value) => setSortBy(value as any)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Ordenar por" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">Sem ordenação</SelectItem>
+                    <SelectItem value="price-asc">Preço: menor → maior</SelectItem>
+                    <SelectItem value="price-desc">Preço: maior → menor</SelectItem>
+                    <SelectItem value="rating-desc">Melhor avaliação</SelectItem>
+                  </SelectContent>
+                </Select>
 
                 {/* Availability Filter */}
                 {/* <Select value={availabilityFilter} onValueChange={setAvailabilityFilter}>

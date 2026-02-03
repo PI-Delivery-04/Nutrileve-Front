@@ -24,7 +24,7 @@ export const atualizar = async (
 };
 
 export const deletar = async (url: string, header: Object) => {
-  await api.delete(url);
+  await api.delete(url, header);
 };
 
 export async function buscarUsuarioLogado(id: number, dados: Object, header: Object) {
