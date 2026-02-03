@@ -104,7 +104,7 @@ export const CartItemComponent = ({ item }: CartItemProps) => {
             </div>
 
             {/* Subtotal */}
-            <span className="font-bold text-green-600">
+            <span className="font-bold text-emerald-600">
               {subtotal.toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
@@ -135,7 +135,7 @@ export const CartItemComponent = ({ item }: CartItemProps) => {
             onChange={(e) => setObservations(e.target.value)}
             placeholder="Ex: Sem cebola, pouco sal..."
             className="w-full p-2 text-sm border border-gray-300 rounded-lg 
-                     focus:ring-2 focus:ring-green-500 focus:border-transparent
+                     focus:ring-2 focus:ring-emerald-600 focus:border-transparent
                      resize-none"
             rows={2}
             maxLength={100}
@@ -153,7 +153,7 @@ export const CartItemComponent = ({ item }: CartItemProps) => {
               </button>
               <button
                 onClick={handleSaveObservations}
-                className="px-3 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600"
+                className="px-3 py-1 text-xs bg-emerald-600 text-white rounded hover:bg-green-600"
               >
                 Salvar
               </button>

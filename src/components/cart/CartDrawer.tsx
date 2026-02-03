@@ -75,7 +75,7 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             <div className="flex flex-col items-center justify-center h-full text-gray-400">
               <ShoppingBag className="w-16 h-16 mb-4 opacity-50" />
               <p className="text-lg font-medium">Seu carrinho está vazio</p>
-              <p className="text-sm">Adicione marmitas deliciosas!</p>
+              <p className="text-sm">Adicione pratos incriveis!</p>
             </div>
           ) : (
             <>
@@ -115,7 +115,7 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             {/* Taxa de entrega (exemplo) */}
             <div className="flex justify-between text-sm">
               <span className="text-gray-600">Taxa de entrega</span>
-              <span className="font-medium text-green-600">Grátis</span>
+              <span className="font-medium text-emerald-600">Grátis</span>
             </div>
 
             {/* Divider */}
@@ -124,7 +124,7 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             {/* Total */}
             <div className="flex justify-between items-center">
               <span className="text-lg font-bold">Total</span>
-              <span className="text-2xl font-bold text-green-600">
+              <span className="text-2xl font-bold text-emerald-600">
                 {totalPrice.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
@@ -135,8 +135,8 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             {/* Botão Finalizar Pedido */}
             <button
               onClick={handleCheckout}
-              className="w-full bg-linear-to-r from-green-500 to-green-600 text-white 
-                       py-4 rounded-xl font-bold text-lg hover:from-green-600 hover:to-green-700 
+              className="w-full bg-linear-to-r from-emerald-500 to-emerald-600 text-white 
+                       py-4 rounded-xl font-bold text-lg hover:from-emerald-600 hover:to-emerald-700 
                        transition-all transform hover:scale-[1.02] active:scale-[0.98]
                        shadow-lg hover:shadow-xl"
             >
