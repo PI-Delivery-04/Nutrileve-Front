@@ -1,7 +1,7 @@
 import { Category } from "./Category";
 
 export interface Product {
-  restaurant: null;
+  restaurant?: null;
   id?: number;
   name: string;
   description: string;
