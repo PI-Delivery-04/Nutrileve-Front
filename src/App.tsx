@@ -14,7 +14,7 @@ import { Login } from "./pages/login/Login";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { Profile } from "./pages/profile/altprofile";
-import { Checkout } from "./pages/pagamento/pagamento";
+import { Checkout } from "./pages/checkout/Checkout";
 
 function App() {
   return (
