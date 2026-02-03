@@ -35,7 +35,8 @@ export function ProductForm({ product, isOpen, onClose, onSave }: ProductFormPro
         image: '',
         category: { id: 0, name: '' },
         dietType: [],
-        available: true
+        available: true,
+        restaurant: null
     });
 
     const [selectedDietTypes, setSelectedDietTypes] = useState<string[]>([]);
@@ -56,7 +57,8 @@ export function ProductForm({ product, isOpen, onClose, onSave }: ProductFormPro
                 image: '',
                 category: { id: 0, name: '' },
                 dietType: [],
-                available: true
+                available: true,
+                restaurant: null
             });
             setSelectedDietTypes([]);
         }
